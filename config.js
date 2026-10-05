@@ -10,10 +10,10 @@ module.exports = {
   // Ventana horaria para el inicio aleatorio del envío diario (Formato 24h)
   // Cada día elegirá una hora y minuto al azar dentro de este rango.
   timeWindow: {
-    startHour: 8,     // Desde las 08:30 AM
-    startMinute: 30,
-    endHour: 12,      // Hasta las 12:30 PM
-    endMinute: 30
+    startHour: 8,     // Desde las 08:00 AM
+    startMinute: 0,
+    endHour: 19,      // Hasta las 07:00 PM (19:00h)
+    endMinute: 0
   },
 
   // Pausa aleatoria entre mensaje y mensaje (en milisegundos)
