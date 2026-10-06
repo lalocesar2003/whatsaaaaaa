@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "tema": "Miocardiopatía Hipertrófica",
+    "pregunta": "Paciente de 22 años, deportista, presenta síncope durante el ejercicio. El ecocardiograma muestra hipertrofia septal asimétrica con gradiente en el tracto de salida del VI. ¿Cuál es la conducta MÁS adecuada respecto a la actividad física?",
+    "alternativas": [
+      "A) Permitir deporte competitivo con monitoreo cardiológico",
+      "B) Restringir actividad física intensa y derivar a cardiología",
+      "C) Iniciar betabloqueadores y continuar deporte recreativo sin restricción",
+      "D) Realizar ablación septal inmediata sin más estudios"
+    ],
+    "respuesta": "B",
+    "explicacion": "La MCH obstructiva con síncope de esfuerzo es una contraindicación para el deporte competitivo por alto riesgo de muerte súbita. Se restringe la actividad física intensa y se deriva a cardiología para evaluación completa (Holter, prueba de esfuerzo, RMN). Los betabloqueadores son primera línea farmacológica pero NO permiten continuar el deporte."
+  },
+  {
+    "id": 2,
+    "tema": "Endocarditis Infecciosa",
+    "pregunta": "Paciente con fiebre de 3 semanas, soplo cardíaco de nueva aparición, hematuria microscópica y nódulos dolorosos en los pulpejos de los dedos. ¿Cuál combinación de hallazgos cumple criterios de Duke MAYORES para endocarditis infecciosa?",
+    "alternativas": [
+      "A) Fiebre + leucocitosis + soplo nuevo",
+      "B) Hemocultivos positivos + vegetación en ecocardiograma",
+      "C) Nódulos de Osler + manchas de Roth + esplenomegalia",
+      "D) Hematuria + fiebre + anemia normocítica"
+    ],
+    "respuesta": "B",
+    "explicacion": "Los criterios de Duke MAYORES son: (1) hemocultivos positivos con microorganismo típico en ≥2 muestras y (2) evidencia de compromiso endocárdico (vegetación, absceso o nueva regurgitación valvular en ECO). Los nódulos de Osler, manchas de Roth y hematuria son criterios MENORES. Se necesitan 2 mayores, 1 mayor + 3 menores, o 5 menores para diagnóstico definitivo."
+  },
+  {
+    "id": 3,
+    "tema": "Hemorragia Digestiva Alta Variceal",
+    "pregunta": "Paciente con cirrosis hepática Child-Pugh C llega por hematemesis masiva. PA: 80/50 mmHg, FC: 122 lpm. ¿Cuál es el ORDEN CORRECTO de las primeras intervenciones?",
+    "alternativas": [
+      "A) Endoscopía urgente → estabilización hemodinámica → antibióticos",
+      "B) Estabilización hemodinámica + octreótido IV + antibióticos → endoscopía en 12h",
+      "C) Sonda Sengstaken-Blakemore → transfusión → endoscopía",
+      "D) Propranolol IV → endoscopía → octreótido"
+    ],
+    "respuesta": "B",
+    "explicacion": "El manejo inicial es: (1) ABC y estabilización hemodinámica con cristaloides y transfusión (objetivo Hb 7-8 g/dL), (2) vasoactivos: octreótido o terlipresina IV para reducir presión portal, (3) antibióticos profilácticos (ceftriaxona) para prevenir peritonitis bacteriana espontánea, y (4) endoscopía dentro de las primeras 12 horas para ligadura de varices. El propranolol IV está contraindicado en hemorragia activa."
+  },
+  {
+    "id": 4,
+    "tema": "Enfermedad Vascular Cerebral Isquémico",
+    "pregunta": "Paciente de 68 años con HTA llega a urgencias con hemiparesia derecha y afasia de inicio brusco hace 2.5 horas. TAC sin contraste: sin hemorragia, sin signos precoces de isquemia extensa. NIHSS: 14. ¿Cuál es la intervención con MAYOR beneficio en este momento?",
+    "alternativas": [
+      "A) Anticoagulación con heparina sódica IV de inmediato",
+      "B) Trombolisis sistémica con rt-PA IV (alteplase 0.9 mg/kg)",
+      "C) Aspirina 300 mg oral y observación hospitalaria",
+      "D) Trombectomía mecánica como primera línea sin trombolisis previa"
+    ],
+    "respuesta": "B",
+    "explicacion": "El rt-PA IV está indicado en ictus isquémico dentro de las 4.5 horas de inicio si no hay contraindicaciones. Con NIHSS 14 (moderado-grave), sin hemorragia en TAC y tiempo de 2.5h, la trombolisis es la intervención de mayor beneficio. La trombectomía mecánica se consideraría si hay oclusión de gran vaso (requiere angioTAC), pero no reemplaza al rt-PA dentro de ventana. La heparina no tiene indicación en fase aguda."
+  },
+  {
+    "id": 5,
+    "tema": "Pericarditis Aguda",
+    "pregunta": "Paciente de 28 años presenta dolor torácico que empeora en decúbito y mejora al sentarse inclinado hacia adelante, desde hace 3 días. ECG: elevación difusa del ST en forma cóncava con descenso del PR. Sin derrame en ecocardiograma. ¿Cuál es el tratamiento de PRIMERA LÍNEA?",
+    "alternativas": [
+      "A) Prednisona 1 mg/kg/día por 4 semanas",
+      "B) Ibuprofeno 600 mg c/8h + colchicina 0.5 mg c/12h por 3 meses",
+      "C) Pericardiocentesis urgente + antibióticos",
+      "D) Reposo absoluto hospitalario sin medicación hasta resultado de cultivos"
+    ],
+    "respuesta": "B",
+    "explicacion": "La pericarditis aguda idiopática/viral se trata con AINEs (ibuprofeno o aspirina) + colchicina por 3 meses para reducir recurrencias (evidencia clase I). Los corticoides son segunda línea (solo si falla AINES o contraindicación) y aumentan riesgo de recurrencia. La pericardiocentesis es para taponamiento cardíaco (no presente aquí). El reposo relativo se indica solo en atletas hasta resolución de síntomas."
+  }
+]

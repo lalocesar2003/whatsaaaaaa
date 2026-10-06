@@ -2,6 +2,7 @@ node_modules/
 .wwebjs_auth/
 .wwebjs_cache/
 historial.json
+quiz-historial.json
 *.log
 .env
 parse-csv.js

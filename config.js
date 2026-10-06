@@ -54,8 +54,32 @@ module.exports = {
   // Identificador único de sesión para persistencia permanente de WhatsApp
   authClientId: 'prospeccion-bot',
 
-  // Rutas de archivos
+  // Rutas de archivos (prospección)
   numbersFile: path.join(__dirname, 'numeros.txt'),
   historyFile: path.join(__dirname, 'historial.json'),
-  authDataPath: path.join(__dirname, '.wwebjs_auth')
+  authDataPath: path.join(__dirname, '.wwebjs_auth'),
+
+  // ================================================================
+  // MÓDULO QUIZ MÉDICO — Preguntas diarias para estudio
+  // ================================================================
+  quiz: {
+    // Número de tu novia (destinataria de las preguntas)
+    targetNumber: '51932888285',
+
+    // Ventana horaria aleatoria para el envío de la pregunta diaria
+    timeWindow: {
+      startHour: 6,    // Desde las 06:00 AM
+      startMinute: 0,
+      endHour: 23,     // Hasta las 11:00 PM (23:00h)
+      endMinute: 0
+    },
+
+    // Tiempo de espera entre la pregunta y la respuesta (en ms)
+    // 420000 ms = 7 minutos exactos
+    answerDelayMs: 420000,
+
+    // Rutas de archivos del quiz
+    questionsFile: path.join(__dirname, 'preguntas.json'),
+    historyFile: path.join(__dirname, 'quiz-historial.json')
+  }
 };

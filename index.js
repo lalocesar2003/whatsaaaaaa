@@ -15,11 +15,25 @@ const {
   getNextScheduledTime,
   formatTime
 } = require('./utils');
+const {
+  getNextQuestion,
+  sentQuizToday,
+  saveQuizHistory,
+  loadQuizHistory,
+  getNextQuizTime,
+  formatQuestionMessage,
+  formatAnswerMessage
+} = require('./quiz');
 
 // Estado global de la aplicación
 let clientReady = false;
 let isSending = false;
 let nextScheduledRun = null;
+
+// Estado global del quiz
+let nextQuizRun = null;
+let isSendingQuiz = false;
+
 
 // Configuración de Puppeteer (adaptada para Windows y Ubuntu Server)
 const puppeteerOptions = {
@@ -88,10 +102,13 @@ client.on('ready', async () => {
 
   if (sentToday >= config.dailyLimit) {
     console.log(`📌 Cuota diaria de hoy completada (${config.dailyLimit}/${config.dailyLimit}).`);
-    scheduleNextRun(true); // forzar cálculo para mañana
+    scheduleNextRun(true);
   } else {
-    scheduleNextRun(false); // calcular horario para hoy si es posible
+    scheduleNextRun(false);
   }
+
+  // Inicializar el quiz
+  scheduleNextQuiz();
 });
 
 /**
@@ -114,6 +131,33 @@ function scheduleNextRun(forceTomorrow = false) {
   console.log(`   👉 Fecha: ${nextScheduledRun.toLocaleDateString()} a las ${formatTime(nextScheduledRun)}`);
   console.log(`   💤 El bot permanecerá en reposo conectado a WhatsApp hasta esa hora...\n`);
 }
+
+/**
+ * Programa el próximo envío del quiz médico.
+ */
+function scheduleNextQuiz() {
+  if (sentQuizToday()) {
+    // Ya se envió hoy: programar para mañana
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const startMinutes = config.quiz.timeWindow.startHour * 60 + config.quiz.timeWindow.startMinute;
+    const endMinutes = config.quiz.timeWindow.endHour * 60 + config.quiz.timeWindow.endMinute;
+    const chosenMinute = getRandomInt(startMinutes, endMinutes);
+    tomorrow.setHours(Math.floor(chosenMinute / 60), chosenMinute % 60, getRandomInt(0, 59), 0);
+    nextQuizRun = tomorrow;
+  } else {
+    nextQuizRun = getNextQuizTime(config.quiz.timeWindow);
+  }
+
+  const questions = require('./quiz').loadQuestions();
+  const history = require('./quiz').loadQuizHistory();
+  const pending = questions.length - history.sent.length;
+
+  console.log(`\n📚 [Quiz] Próxima pregunta médica programada para:`);
+  console.log(`   👉 Fecha: ${nextQuizRun.toLocaleDateString()} a las ${formatTime(nextQuizRun)}`);
+  console.log(`   📋 Preguntas pendientes en el banco: ${pending >= 0 ? pending : questions.length}\n`);
+}
+
 
 /**
  * Ejecuta el lote diario de prospección con variaciones y desfases humanos.
@@ -232,13 +276,81 @@ async function executeDailyBatch() {
   }
 }
 
-// Heartbeat cada 30 segundos: verifica si llegó la hora programada
+/**
+ * Ejecuta el envío de la pregunta diaria del quiz médico.
+ * Primero envía la pregunta, espera 7 minutos y luego envía la respuesta.
+ */
+async function executeQuiz() {
+  if (isSendingQuiz) return;
+  isSendingQuiz = true;
+
+  try {
+    const question = getNextQuestion();
+    if (!question) {
+      console.log('⚠️ [Quiz] No hay preguntas en preguntas.json. Agrega preguntas y reinicia.');
+      scheduleNextQuiz();
+      isSendingQuiz = false;
+      return;
+    }
+
+    const chatId = `${config.quiz.targetNumber}@c.us`;
+    console.log(`\n📚 [Quiz] (${formatTime(new Date())}) Enviando pregunta: "${question.tema}"`);
+
+    // 1. Verificar que el número existe en WhatsApp
+    const isRegistered = await client.isRegisteredUser(chatId);
+    if (!isRegistered) {
+      console.error(`❌ [Quiz] El número ${config.quiz.targetNumber} no está registrado en WhatsApp.`);
+      scheduleNextQuiz();
+      isSendingQuiz = false;
+      return;
+    }
+
+    // 2. Enviar la pregunta
+    await client.sendMessage(chatId, formatQuestionMessage(question));
+    console.log(`✅ [Quiz] Pregunta enviada. Esperando ${config.quiz.answerDelayMs / 60000} minutos para enviar respuesta...`);
+
+    // 3. Esperar el tiempo configurado (7 minutos)
+    await sleep(config.quiz.answerDelayMs);
+
+    // 4. Enviar la respuesta
+    await client.sendMessage(chatId, formatAnswerMessage(question));
+    console.log(`✅ [Quiz] Respuesta enviada para: "${question.tema}"`);
+
+    // 5. Guardar en historial
+    const history = loadQuizHistory();
+    history.sent.push({
+      id: question.id,
+      tema: question.tema,
+      date: new Date().toISOString(),
+      respuesta: question.respuesta
+    });
+    saveQuizHistory(history);
+
+    // 6. Programar la siguiente pregunta
+    scheduleNextQuiz();
+
+  } catch (err) {
+    console.error('❌ [Quiz] Error durante el envío:', err.message);
+    scheduleNextQuiz();
+  } finally {
+    isSendingQuiz = false;
+  }
+}
+
+// Heartbeat cada 30 segundos: verifica si llegó la hora del prospecting o del quiz
 setInterval(() => {
-  if (!clientReady || isSending || !nextScheduledRun) return;
+  if (!clientReady) return;
 
   const now = new Date();
-  if (now >= nextScheduledRun) {
+
+  // Verificar si es hora de prospectar
+  if (!isSending && nextScheduledRun && now >= nextScheduledRun) {
     executeDailyBatch();
+  }
+
+  // Verificar si es hora de enviar pregunta del quiz
+  if (!isSendingQuiz && nextQuizRun && now >= nextQuizRun) {
+    executeQuiz();
   }
 }, 30000);
 
@@ -246,3 +358,4 @@ setInterval(() => {
 client.initialize().catch((err) => {
   console.error('❌ Error crítico al inicializar cliente:', err);
 });
+
