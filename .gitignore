@@ -3,6 +3,7 @@ node_modules/
 .wwebjs_cache/
 historial.json
 quiz-historial.json
+conversaciones/
 *.log
 .env
 parse-csv.js

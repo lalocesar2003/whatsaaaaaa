@@ -24,6 +24,7 @@ const {
   formatQuestionMessage,
   formatAnswerMessage
 } = require('./quiz');
+const { initResponder, handleIncomingMessage } = require('./responder');
 
 // Estado global de la aplicación
 let clientReady = false;
@@ -109,6 +110,15 @@ client.on('ready', async () => {
 
   // Inicializar el quiz
   scheduleNextQuiz();
+
+  // Inicializar el auto-responder con ChatGPT
+  initResponder();
+});
+
+// Listener de mensajes entrantes: auto-responder a prospectos
+client.on('message', async (msg) => {
+  if (!clientReady) return;
+  handleIncomingMessage(client, msg);
 });
 
 /**
