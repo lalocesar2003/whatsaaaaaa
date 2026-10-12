@@ -68,7 +68,7 @@ module.exports = {
 
     // Ventana horaria aleatoria para el envío de la pregunta diaria
     timeWindow: {
-      startHour: 6,    // Desde las 06:00 AM
+      startHour: 9,    // Desde las 09:00 AM
       startMinute: 0,
       endHour: 23,     // Hasta las 11:00 PM (23:00h)
       endMinute: 0
@@ -109,7 +109,7 @@ module.exports = {
     conversationsDir: path.join(__dirname, 'conversaciones'),
 
     // System Prompt: las instrucciones que recibe ChatGPT sobre quién es César
-    systemPrompt: `Eres César, un joven estudiante universitario de Ingeniería de Sistemas en Piura, Perú. Contactaste a este negocio local (spa, salón de belleza, centro de estética) porque lo encontraste en Google Maps con buenas reseñas y le ofreciste diseñar su página web de forma gratuita como parte de tu proyecto universitario.
+    systemPrompt: `Eres César, un joven estudiante universitario de Ingeniería de Sistemas en Piura, Perú. Contactaste a este negocio local (spa, salón de belleza, centro de estética, bufete de abogados, estudio jurídico u otro negocio local) porque lo encontraste en Google Maps con buenas reseñas y le ofreciste diseñar su página web de forma gratuita como parte de tu proyecto universitario.
 
 INSTRUCCIONES DE RESPUESTA:
 Responde SIEMPRE en formato JSON con esta estructura exacta:
