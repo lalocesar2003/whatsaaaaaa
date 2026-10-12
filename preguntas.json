@@ -1,67 +1,366 @@
 [
   {
     "id": 1,
-    "tema": "Miocardiopatía Hipertrófica",
-    "pregunta": "Paciente de 22 años, deportista, presenta síncope durante el ejercicio. El ecocardiograma muestra hipertrofia septal asimétrica con gradiente en el tracto de salida del VI. ¿Cuál es la conducta MÁS adecuada respecto a la actividad física?",
+    "tema": "Miocardiopatía Dilatada",
+    "pregunta": "Paciente de 55 años con disnea progresiva de 3 meses, ortopnea y edema de miembros inferiores. Ecocardiograma: dilatación de las 4 cavidades con FEVI del 25%. ¿Cuál es el pilar terapéutico que ha demostrado reducir mortalidad?",
     "alternativas": [
-      "A) Permitir deporte competitivo con monitoreo cardiológico",
-      "B) Restringir actividad física intensa y derivar a cardiología",
-      "C) Iniciar betabloqueadores y continuar deporte recreativo sin restricción",
-      "D) Realizar ablación septal inmediata sin más estudios"
+      "A) Digoxina + furosemida",
+      "B) IECA/ARA-II + betabloqueador + antagonista de mineralocorticoides",
+      "C) Calcioantagonistas + diuréticos de asa",
+      "D) Amiodarona + anticoagulación oral"
     ],
     "respuesta": "B",
-    "explicacion": "La MCH obstructiva con síncope de esfuerzo es una contraindicación para el deporte competitivo por alto riesgo de muerte súbita. Se restringe la actividad física intensa y se deriva a cardiología para evaluación completa (Holter, prueba de esfuerzo, RMN). Los betabloqueadores son primera línea farmacológica pero NO permiten continuar el deporte."
+    "explicacion": "El tratamiento que reduce mortalidad en MCd es la triple terapia neurohormonal: IECA o ARA-II (reduce postcarga y remodelado), betabloqueador (carvedilol, bisoprolol o metoprolol succinato), y antagonista de mineralocorticoides (espironolactona/eplerenona). La digoxina mejora síntomas pero NO reduce mortalidad. Los calcioantagonistas están contraindicados (efecto inotrópico negativo)."
   },
   {
     "id": 2,
-    "tema": "Endocarditis Infecciosa",
-    "pregunta": "Paciente con fiebre de 3 semanas, soplo cardíaco de nueva aparición, hematuria microscópica y nódulos dolorosos en los pulpejos de los dedos. ¿Cuál combinación de hallazgos cumple criterios de Duke MAYORES para endocarditis infecciosa?",
+    "tema": "Miocardiopatía Restrictiva",
+    "pregunta": "Paciente de 68 años con ICC derecha predominante, FEVI preservada (60%), engrosamiento del septum interventricular con patrón granular brillante en ecocardiograma y proteinuria. ¿Cuál es la asociación fisiopatológica MÁS probable?",
     "alternativas": [
-      "A) Fiebre + leucocitosis + soplo nuevo",
-      "B) Hemocultivos positivos + vegetación en ecocardiograma",
-      "C) Nódulos de Osler + manchas de Roth + esplenomegalia",
-      "D) Hematuria + fiebre + anemia normocítica"
+      "A) Fibrosis endomiocárdica por eosinófilos",
+      "B) Depósito de amiloide en el miocardio (amiloidosis cardíaca)",
+      "C) Sobrecarga de hierro por hemocromatosis",
+      "D) Enfermedad de Fabry con depósito de glucoesfingolípidos"
     ],
     "respuesta": "B",
-    "explicacion": "Los criterios de Duke MAYORES son: (1) hemocultivos positivos con microorganismo típico en ≥2 muestras y (2) evidencia de compromiso endocárdico (vegetación, absceso o nueva regurgitación valvular en ECO). Los nódulos de Osler, manchas de Roth y hematuria son criterios MENORES. Se necesitan 2 mayores, 1 mayor + 3 menores, o 5 menores para diagnóstico definitivo."
+    "explicacion": "El patrón granular brillante (sparkling) en ecocardiograma + engrosamiento biventricular + FEVI preservada + ICC derecha + proteinuria (afectación renal) es la presentación clásica de amiloidosis cardíaca. La infiltración por amiloide causa rigidez del miocardio con fisiología restrictiva. La hemocromatosis se asocia más a MCd. La enfermedad de Fabry produce hipertrofia concéntrica del VI."
   },
   {
     "id": 3,
-    "tema": "Hemorragia Digestiva Alta Variceal",
-    "pregunta": "Paciente con cirrosis hepática Child-Pugh C llega por hematemesis masiva. PA: 80/50 mmHg, FC: 122 lpm. ¿Cuál es el ORDEN CORRECTO de las primeras intervenciones?",
+    "tema": "Miocarditis",
+    "pregunta": "Paciente de 25 años, 2 semanas después de un cuadro viral, presenta dolor torácico, disnea y elevación de troponinas. ECG: elevación difusa del ST sin imagen en espejo. Ecocardiograma: FEVI 40% con hipoquinesia difusa. ¿Cuál es el estudio de MAYOR rendimiento diagnóstico?",
     "alternativas": [
-      "A) Endoscopía urgente → estabilización hemodinámica → antibióticos",
-      "B) Estabilización hemodinámica + octreótido IV + antibióticos → endoscopía en 12h",
-      "C) Sonda Sengstaken-Blakemore → transfusión → endoscopía",
-      "D) Propranolol IV → endoscopía → octreótido"
+      "A) Coronariografía urgente para descartar SCA",
+      "B) Resonancia magnética cardíaca con gadolinio",
+      "C) Biopsia endomiocárdica inmediata",
+      "D) Gammagrafía con galio-67"
     ],
     "respuesta": "B",
-    "explicacion": "El manejo inicial es: (1) ABC y estabilización hemodinámica con cristaloides y transfusión (objetivo Hb 7-8 g/dL), (2) vasoactivos: octreótido o terlipresina IV para reducir presión portal, (3) antibióticos profilácticos (ceftriaxona) para prevenir peritonitis bacteriana espontánea, y (4) endoscopía dentro de las primeras 12 horas para ligadura de varices. El propranolol IV está contraindicado en hemorragia activa."
+    "explicacion": "La RMN cardíaca con gadolinio es el gold standard no invasivo para miocarditis. Los criterios de Lake Louise muestran: edema en T2 (inflamación activa), realce tardío con gadolinio en patrón NO coronario (subepicárdico o mesocárdico, a diferencia del infarto que es subendocárdico). La biopsia endomiocárdica es el gold standard histológico pero es invasiva y tiene baja sensibilidad por el muestreo parcheado."
   },
   {
     "id": 4,
-    "tema": "Enfermedad Vascular Cerebral Isquémico",
-    "pregunta": "Paciente de 68 años con HTA llega a urgencias con hemiparesia derecha y afasia de inicio brusco hace 2.5 horas. TAC sin contraste: sin hemorragia, sin signos precoces de isquemia extensa. NIHSS: 14. ¿Cuál es la intervención con MAYOR beneficio en este momento?",
+    "tema": "Taponamiento Cardíaco",
+    "pregunta": "Paciente con cáncer de pulmón presenta hipotensión, ingurgitación yugular y ruidos cardíacos velados. El ECG muestra alternancia eléctrica. ¿Cuál es la conducta MÁS adecuada?",
     "alternativas": [
-      "A) Anticoagulación con heparina sódica IV de inmediato",
-      "B) Trombolisis sistémica con rt-PA IV (alteplase 0.9 mg/kg)",
-      "C) Aspirina 300 mg oral y observación hospitalaria",
-      "D) Trombectomía mecánica como primera línea sin trombolisis previa"
+      "A) Administrar diuréticos IV para reducir la precarga",
+      "B) Pericardiocentesis guiada por ecografía",
+      "C) Iniciar AINEs + colchicina y observar evolución",
+      "D) Ventilación mecánica invasiva urgente"
     ],
     "respuesta": "B",
-    "explicacion": "El rt-PA IV está indicado en ictus isquémico dentro de las 4.5 horas de inicio si no hay contraindicaciones. Con NIHSS 14 (moderado-grave), sin hemorragia en TAC y tiempo de 2.5h, la trombolisis es la intervención de mayor beneficio. La trombectomía mecánica se consideraría si hay oclusión de gran vaso (requiere angioTAC), pero no reemplaza al rt-PA dentro de ventana. La heparina no tiene indicación en fase aguda."
+    "explicacion": "La tríada de Beck (hipotensión, ingurgitación yugular, ruidos apagados) + alternancia eléctrica = taponamiento cardíaco. Es una emergencia que requiere pericardiocentesis urgente guiada por ecografía. Los diuréticos están CONTRAINDICADOS porque reducen la precarga y empeoran el gasto cardíaco. Los AINEs son para pericarditis sin taponamiento. Mientras se prepara la pericardiocentesis: bolos de SSF IV para mantener precarga."
   },
   {
     "id": 5,
-    "tema": "Pericarditis Aguda",
-    "pregunta": "Paciente de 28 años presenta dolor torácico que empeora en decúbito y mejora al sentarse inclinado hacia adelante, desde hace 3 días. ECG: elevación difusa del ST en forma cóncava con descenso del PR. Sin derrame en ecocardiograma. ¿Cuál es el tratamiento de PRIMERA LÍNEA?",
+    "tema": "Trombosis Venosa Profunda",
+    "pregunta": "Mujer de 35 años, en postoperatorio de cirugía abdominal, presenta edema unilateral de pierna izquierda, dolor a la dorsiflexión del pie y empastamiento gemelar. Score de Wells: 4 puntos. ¿Cuál es el SIGUIENTE paso diagnóstico?",
     "alternativas": [
-      "A) Prednisona 1 mg/kg/día por 4 semanas",
-      "B) Ibuprofeno 600 mg c/8h + colchicina 0.5 mg c/12h por 3 meses",
-      "C) Pericardiocentesis urgente + antibióticos",
-      "D) Reposo absoluto hospitalario sin medicación hasta resultado de cultivos"
+      "A) Solicitar dímero D y si es negativo descartar TVP",
+      "B) Ecografía Doppler venosa de miembro inferior izquierdo",
+      "C) AngioTAC de tórax para descartar TEP asociado",
+      "D) Iniciar anticoagulación y solicitar flebografía"
     ],
     "respuesta": "B",
-    "explicacion": "La pericarditis aguda idiopática/viral se trata con AINEs (ibuprofeno o aspirina) + colchicina por 3 meses para reducir recurrencias (evidencia clase I). Los corticoides son segunda línea (solo si falla AINES o contraindicación) y aumentan riesgo de recurrencia. La pericardiocentesis es para taponamiento cardíaco (no presente aquí). El reposo relativo se indica solo en atletas hasta resolución de síntomas."
+    "explicacion": "Con Wells ≥3 (alta probabilidad), el dímero D NO sirve para descartar (solo es útil en baja probabilidad). Se debe realizar directamente ecografía Doppler venosa (sensibilidad >95% para TVP proximal). Si es positiva, iniciar anticoagulación. El signo de Homans (dolor a la dorsiflexión) tiene baja sensibilidad y especificidad pero orienta. La flebografía es invasiva y casi no se usa hoy."
+  },
+  {
+    "id": 6,
+    "tema": "Tromboembolismo Pulmonar",
+    "pregunta": "Paciente de 60 años con disnea súbita, taquicardia, hipoxemia y dolor pleurítico. Dímero D elevado. AngioTAC: defecto de llenado en arteria pulmonar derecha. PA: 82/55 mmHg. FC: 125. ¿Cuál es la intervención terapéutica indicada?",
+    "alternativas": [
+      "A) Heparina de bajo peso molecular subcutánea y observar",
+      "B) Trombolisis sistémica con alteplasa (100 mg IV en 2 horas)",
+      "C) Filtro de vena cava inferior de urgencia",
+      "D) Embolectomía quirúrgica como primera opción"
+    ],
+    "respuesta": "B",
+    "explicacion": "TEP masivo = TEP + inestabilidad hemodinámica (PAS <90 mmHg). La indicación es trombolisis sistémica con alteplasa 100 mg IV en 2 horas (clase I). La HBPM sola es para TEP submasivo/no masivo. El filtro de VCI se usa cuando hay contraindicación para anticoagulación. La embolectomía quirúrgica es última opción cuando falla la trombolisis o está contraindicada."
+  },
+  {
+    "id": 7,
+    "tema": "Disfagia Orofaríngea",
+    "pregunta": "Paciente de 72 años con ACV previo presenta tos al deglutir líquidos, regurgitación nasal y voz húmeda después de tragar. ¿Cuál es el estudio de despistaje MÁS adecuado para evaluar la disfagia?",
+    "alternativas": [
+      "A) Endoscopía digestiva alta",
+      "B) Videofluoroscopía de la deglución (estudio de bario modificado)",
+      "C) Manometría esofágica de alta resolución",
+      "D) TAC de cuello con contraste"
+    ],
+    "respuesta": "B",
+    "explicacion": "La disfagia orofaríngea (tos al deglutir, regurgitación nasal, voz húmeda = aspiración) se evalúa con videofluoroscopía (gold standard), que permite visualizar en tiempo real las fases oral y faríngea de la deglución e identificar aspiración silente. La endoscopía evalúa lesiones estructurales esofágicas. La manometría es para trastornos motores esofágicos (acalasia). La causa más frecuente de disfagia orofaríngea es el ACV."
+  },
+  {
+    "id": 8,
+    "tema": "Disfagia Esofágica - Acalasia",
+    "pregunta": "Paciente de 40 años con disfagia progresiva de 2 años, tanto para sólidos como para líquidos desde el inicio, regurgitación de alimentos no digeridos y pérdida de peso. Esofagograma: dilatación del esófago con estrechamiento distal en \"pico de pájaro\". ¿Cuál hallazgo confirmaría el diagnóstico?",
+    "alternativas": [
+      "A) Manometría: aperistalsis del cuerpo esofágico + falla de relajación del EEI",
+      "B) Endoscopía: estenosis péptica del tercio distal",
+      "C) pHmetría de 24h: reflujo ácido patológico",
+      "D) TAC torácica: masa mediastínica comprimiendo el esófago"
+    ],
+    "respuesta": "A",
+    "explicacion": "Disfagia para sólidos Y líquidos desde el inicio = trastorno motor (no obstructivo). El signo del pico de pájaro en esofagograma es clásico de acalasia. La manometría (gold standard) confirma: aperistalsis del cuerpo esofágico + falla de relajación del EEI (presión residual >15 mmHg). Tratamiento: dilatación neumática, miotomía de Heller o POEM. IMPORTANTE: en >60 años descartar pseudoacalasia por cáncer de cardias."
+  },
+  {
+    "id": 9,
+    "tema": "HDA No Variceal - Mallory Weiss",
+    "pregunta": "Paciente de 28 años llega a urgencias con hematemesis después de múltiples episodios de vómitos intensos tras ingesta alcohólica. Signos vitales estables. ¿Cuál es la interpretación MÁS adecuada y la conducta a seguir?",
+    "alternativas": [
+      "A) Síndrome de Boerhaave: TAC de tórax urgente y cirugía",
+      "B) Síndrome de Mallory-Weiss: endoscopía dentro de 24h, la mayoría cede espontáneamente",
+      "C) Úlcera gástrica perforada: radiografía de abdomen buscando neumoperitoneo",
+      "D) Varices esofágicas: octreótido IV inmediato"
+    ],
+    "respuesta": "B",
+    "explicacion": "Hematemesis post-vómitos intensos (arcadas repetidas) en paciente joven con ingesta alcohólica = desgarro de Mallory-Weiss (laceración de la unión gastroesofágica). El 80-90% cede espontáneamente sin intervención. Se realiza endoscopía dentro de 24h para confirmar y tratar si hay sangrado activo. Boerhaave es una perforación transmural (dolor torácico severo, enfisema subcutáneo, mediastinitis) — mucho más grave."
+  },
+  {
+    "id": 10,
+    "tema": "HDA No Variceal - Úlcera Péptica",
+    "pregunta": "Paciente de 65 años, usuario crónico de AINEs, presenta melena de 3 días y hemoglobina de 7.2 g/dL. Endoscopía: úlcera gástrica con vaso visible no sangrante en el fondo (Forrest IIa). ¿Cuál es la conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Omeprazol oral y alta con control ambulatorio",
+      "B) Terapia endoscópica combinada (inyección + clips/térmico) + IBP IV en infusión continua",
+      "C) Cirugía urgente: gastrectomía parcial",
+      "D) Solo IBP IV en bolo y observación sin intervención endoscópica"
+    ],
+    "respuesta": "B",
+    "explicacion": "Forrest IIa (vaso visible no sangrante) tiene alto riesgo de resangrado (43-55%). Requiere terapia endoscópica combinada (dos métodos: ej. adrenalina + hemoclip o electrocoagulación) + IBP IV en infusión continua (omeprazol 80 mg bolo + 8 mg/h por 72h). La monoterapia endoscópica es inferior a la combinada. Suspender AINEs y erradicar H. pylori si es positivo."
+  },
+  {
+    "id": 11,
+    "tema": "Hemorragia Digestiva Baja - Diverticular",
+    "pregunta": "Paciente de 70 años presenta hematoquecia abundante, indolora y de inicio súbito. PA: 100/60 mmHg. Colonoscopía tras preparación: divertículos múltiples en colon izquierdo con sangrado activo en un divertículo del sigmoides. ¿Cuál es la conducta inicial MÁS adecuada?",
+    "alternativas": [
+      "A) Cirugía urgente: colectomía segmentaria del sigmoides",
+      "B) Estabilización hemodinámica + hemostasia endoscópica (clip o inyección)",
+      "C) Arteriografía mesentérica con embolización selectiva como primera opción",
+      "D) Observación con IBP IV y transfusión según necesidad"
+    ],
+    "respuesta": "B",
+    "explicacion": "El sangrado diverticular es la causa más frecuente de HDB en >60 años. Es típicamente indoloro, abundante y autolimitado en el 75-80% de los casos. Cuando se identifica el punto sangrante en colonoscopía, la hemostasia endoscópica (clips, inyección de adrenalina, electrocoagulación) es primera línea. La arteriografía con embolización se reserva para sangrado masivo que no permite colonoscopía. La cirugía es última opción."
+  },
+  {
+    "id": 12,
+    "tema": "Enfermedad Hemorroidal",
+    "pregunta": "Paciente de 45 años consulta por sangrado rectal rojo brillante que gotea al final de la defecación y prurito anal. Al examen: masa violácea prolapsada que se reduce manualmente. ¿Qué grado de hemorroides tiene y cuál es el tratamiento indicado?",
+    "alternativas": [
+      "A) Grado I: tratamiento conservador con fibra y baños de asiento",
+      "B) Grado II: ligadura con banda elástica",
+      "C) Grado III: ligadura con banda elástica o hemorroidectomía si falla",
+      "D) Grado IV: hemorroidectomía quirúrgica urgente"
+    ],
+    "respuesta": "C",
+    "explicacion": "Clasificación de hemorroides internas: Grado I (no prolapsan), Grado II (prolapsan y se reducen espontáneamente), Grado III (prolapsan y requieren reducción manual), Grado IV (prolapsadas permanentemente, irreductibles). El paciente tiene Grado III (se reduce manualmente). Tratamiento: ligadura con banda elástica (primera línea en grado II-III) o hemorroidectomía si la ligadura falla o en hemorroides grandes."
+  },
+  {
+    "id": 13,
+    "tema": "Diarrea Aguda Infecciosa",
+    "pregunta": "Paciente de 30 años regresa de viaje a zona rural con diarrea acuosa profusa, tipo \"agua de arroz\", vómitos y deshidratación severa desde hace 12 horas. ¿Cuál es la asociación fisiopatológica MÁS probable y el pilar del tratamiento?",
+    "alternativas": [
+      "A) E. coli enterohemorrágica: antibióticos + antidiarreicos",
+      "B) Vibrio cholerae (toxina que activa adenilato ciclasa): rehidratación agresiva oral/IV",
+      "C) Shigella dysenteriae: ciprofloxacino + hidratación moderada",
+      "D) Rotavirus: antivirales + suero oral"
+    ],
+    "respuesta": "B",
+    "explicacion": "Diarrea acuosa profusa tipo \"agua de arroz\" + deshidratación severa + viaje a zona endémica = cólera (V. cholerae). La toxina colérica activa la adenilato ciclasa → aumento de AMPc → secreción masiva de cloro y agua. El pilar del tratamiento es la REHIDRATACIÓN (puede perder >1L/hora). Vía oral (SRO) en leve/moderada, IV en severa. Los antibióticos (doxiciclina o azitromicina) acortan la enfermedad pero son secundarios a la hidratación."
+  },
+  {
+    "id": 14,
+    "tema": "Diarrea Crónica - Enfermedad Celíaca",
+    "pregunta": "Paciente de 32 años con diarrea crónica esteatorréica, distensión abdominal, anemia ferropénica refractaria y dermatitis herpetiforme en codos y rodillas. ¿Cuál es el despistaje inicial MÁS adecuado?",
+    "alternativas": [
+      "A) Coprocultivo y examen parasitológico seriado",
+      "B) Anticuerpos anti-transglutaminasa tisular IgA + IgA sérica total",
+      "C) Colonoscopía con biopsias escalonadas",
+      "D) Test de hidrógeno en aire espirado para intolerancia a lactosa"
+    ],
+    "respuesta": "B",
+    "explicacion": "Diarrea crónica esteatorréica + anemia ferropénica refractaria + dermatitis herpetiforme = alta sospecha de enfermedad celíaca. El despistaje inicial es anti-tTG IgA (sensibilidad >95%) + IgA sérica total (para descartar déficit de IgA, que daría falso negativo). Si es positivo, confirmar con biopsia duodenal (atrofia vellositaria, hiperplasia de criptas, linfocitos intraepiteliales). Tratamiento: dieta libre de gluten de por vida."
+  },
+  {
+    "id": 15,
+    "tema": "Enfermedad Inflamatoria Intestinal - Crohn vs CU",
+    "pregunta": "Paciente de 22 años con diarrea sanguinolenta, dolor abdominal tipo cólico y fiebre de 4 semanas. Colonoscopía: inflamación continua desde recto hasta colon transverso con mucosa eritematosa, friable y ulcerada, sin áreas sanas intermedias. ¿Cuál es la interpretación MÁS adecuada?",
+    "alternativas": [
+      "A) Enfermedad de Crohn colónica: iniciar anti-TNF como primera línea",
+      "B) Colitis ulcerosa: iniciar mesalazina oral + tópica (enemas)",
+      "C) Colitis infecciosa por C. difficile: vancomicina oral",
+      "D) Colitis isquémica: manejo conservador con hidratación"
+    ],
+    "respuesta": "B",
+    "explicacion": "Inflamación CONTINUA (sin áreas sanas) + desde el RECTO hacia proximal + mucosa friable y ulcerada = Colitis Ulcerosa (no Crohn). La CU siempre afecta recto y se extiende proximalmente de forma continua. Crohn es transmural, discontinuo (lesiones en empedrado, skip lesions) y puede afectar cualquier parte del tracto GI. El tratamiento de CU leve-moderada es mesalazina (5-ASA) oral + tópica. Los anti-TNF son para enfermedad moderada-severa refractaria."
+  },
+  {
+    "id": 16,
+    "tema": "Hepatitis B",
+    "pregunta": "Paciente con ictericia, fatiga y transaminasas elevadas (ALT 1200 U/L). Serología: HBsAg (+), anti-HBc IgM (+), HBeAg (+), anti-HBs (-). ¿Cuál es la interpretación MÁS adecuada del perfil serológico?",
+    "alternativas": [
+      "A) Hepatitis B crónica en fase de reactivación",
+      "B) Hepatitis B aguda con alta replicación viral",
+      "C) Infección pasada con inmunidad natural",
+      "D) Vacunación previa exitosa contra hepatitis B"
+    ],
+    "respuesta": "B",
+    "explicacion": "HBsAg (+) = infección activa. Anti-HBc IgM (+) = infección AGUDA (la IgM aparece en fase aguda; si fuera crónica sería IgG). HBeAg (+) = alta replicación viral y alta infectividad. Anti-HBs (-) = no hay inmunidad aún. En la vacunación solo aparece anti-HBs (+) aislado. En infección pasada resuelta: anti-HBs (+) + anti-HBc IgG (+) + HBsAg (-). El 95% de adultos con hepatitis B aguda se resuelve espontáneamente."
+  },
+  {
+    "id": 17,
+    "tema": "Cirrosis Hepática",
+    "pregunta": "Paciente con cirrosis alcohólica Child-Pugh C presenta ascitis tensa, ictericia y encefalopatía grado II. El líquido ascítico muestra: GASA (gradiente albúmina sérica-ascítica) de 1.8 g/dL, PMN: 350 células/mm³. ¿Cuál es la conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Paracentesis evacuadora + albúmina IV y diuréticos",
+      "B) Cefotaxima IV empírica por peritonitis bacteriana espontánea + albúmina IV",
+      "C) TIPS (shunt portosistémico intrahepático transyugular) urgente",
+      "D) Restricción hídrica estricta y furosemida IV en bolo"
+    ],
+    "respuesta": "B",
+    "explicacion": "GASA ≥1.1 = ascitis por hipertensión portal (cirrosis). PMN ≥250 células/mm³ en líquido ascítico = Peritonitis Bacteriana Espontánea (PBE), aun sin cultivo positivo. Tratamiento: antibiótico empírico con cefotaxima IV (o ceftriaxona) + albúmina IV 1.5 g/kg día 1 y 1 g/kg día 3 (reduce mortalidad y síndrome hepatorrenal). No esperar el cultivo para iniciar tratamiento."
+  },
+  {
+    "id": 18,
+    "tema": "Pancreatitis Aguda",
+    "pregunta": "Paciente de 48 años con dolor epigástrico severo en faja irradiado a espalda, náuseas y vómitos. Amilasa: 1500 U/L (VN <100). Lipasa: 2800 U/L. Triglicéridos: 180 mg/dL. Ecografía: cálculos biliares en vesícula. ¿Cuál es la ETIOLOGÍA más probable y la conducta inicial prioritaria?",
+    "alternativas": [
+      "A) Pancreatitis por hipertrigliceridemia: plasmaféresis urgente",
+      "B) Pancreatitis biliar: hidratación IV agresiva + analgesia + colecistectomía antes del alta",
+      "C) Pancreatitis alcohólica: suspender alcohol y dieta absoluta por 7 días",
+      "D) Pancreatitis biliar: CPRE urgente en las primeras 6 horas"
+    ],
+    "respuesta": "B",
+    "explicacion": "Cálculos biliares + amilasa/lipasa muy elevadas = pancreatitis biliar (causa #1 en el mundo: 40-70%). Triglicéridos <500 descarta hipertrigliceridemia como causa. Manejo inicial: (1) hidratación IV agresiva con Ringer Lactato (250-500 mL/h las primeras 12-24h), (2) analgesia (metamizol o meperidina; NO morfina por espasmo del esfínter de Oddi), (3) dieta: reiniciar oral precoz cuando tolere. La colecistectomía se realiza durante la MISMA hospitalización para prevenir recurrencia. La CPRE urgente solo si hay colangitis o ictericia obstructiva."
+  },
+  {
+    "id": 19,
+    "tema": "Pancreatitis Crónica",
+    "pregunta": "Paciente de 50 años, alcohólico crónico, con dolor abdominal recurrente, esteatorrea y pérdida de peso de 3 años. Glicemia en ayunas: 210 mg/dL. TAC: calcificaciones pancreáticas difusas. ¿Cuál es el despistaje MÁS adecuado para confirmar insuficiencia exocrina?",
+    "alternativas": [
+      "A) Amilasa y lipasa sérica (estarán muy elevadas)",
+      "B) Elastasa fecal-1 (valores <200 µg/g confirman insuficiencia)",
+      "C) Test de secretina con aspirado duodenal",
+      "D) Biopsia pancreática guiada por ecoendoscopía"
+    ],
+    "respuesta": "B",
+    "explicacion": "En pancreatitis crónica avanzada, la amilasa y lipasa suelen estar NORMALES o bajas (el páncreas ya está destruido — \"burned out pancreas\"). Las calcificaciones en TAC son patognomónicas de pancreatitis crónica. La esteatorrea + diabetes (insuficiencia endocrina) = destrucción >90% del parénquima. La elastasa fecal-1 es el test no invasivo más práctico: <200 µg/g = insuficiencia exocrina. Tratamiento: suplementos de enzimas pancreáticas (lipasa) con las comidas."
+  },
+  {
+    "id": 20,
+    "tema": "Infecciones del SNC - Meningitis Bacteriana",
+    "pregunta": "Paciente de 20 años presenta fiebre alta, cefalea intensa, rigidez de nuca y petequias en extremidades. Se realiza punción lumbar: LCR turbio, glucosa baja (20 mg/dL), proteínas elevadas (250 mg/dL), PMN 2500/mm³. ¿Cuál es el agente MÁS probable y el tratamiento empírico?",
+    "alternativas": [
+      "A) Streptococcus pneumoniae: vancomicina + ampicilina",
+      "B) Neisseria meningitidis: ceftriaxona + vancomicina + dexametasona",
+      "C) Listeria monocytogenes: ampicilina + gentamicina",
+      "D) Haemophilus influenzae: cloranfenicol en monoterapia"
+    ],
+    "respuesta": "B",
+    "explicacion": "Adulto joven + fiebre + meningismo + PETEQUIAS = alta sospecha de Neisseria meningitidis (meningococo). El LCR turbio con glucosa baja, proteínas altas y predominio de PMN confirma meningitis bacteriana. Tratamiento empírico en adultos 18-50 años: ceftriaxona + vancomicina (cubre neumococo resistente) + dexametasona IV 15-20 min ANTES del antibiótico (reduce mortalidad y secuelas, especialmente en neumococo). Los contactos cercanos necesitan quimioprofilaxis con rifampicina o ciprofloxacino."
+  },
+  {
+    "id": 21,
+    "tema": "Cefalea - Migraña vs Cefalea Tensional",
+    "pregunta": "Paciente de 28 años con cefalea hemicraneal pulsátil de 12 horas, asociada a náuseas, fotofobia y fonofobia. Refiere escotomas centellantes 30 minutos antes del inicio del dolor. Los episodios son recurrentes (4 al mes). ¿Cuál es la conducta terapéutica MÁS adecuada?",
+    "alternativas": [
+      "A) Tratamiento agudo con triptanos + profilaxis con propranolol por tener ≥4 crisis/mes",
+      "B) Paracetamol 500 mg PRN únicamente, sin necesidad de profilaxis",
+      "C) TAC cerebral urgente para descartar tumor antes de iniciar tratamiento",
+      "D) Opioides orales como tratamiento de primera línea por la severidad"
+    ],
+    "respuesta": "A",
+    "explicacion": "Cefalea hemicraneal pulsátil + náuseas + foto/fonofobia + aura visual (escotomas centellantes) = migraña con aura. Con ≥4 crisis/mes se indica profilaxis (propranolol, topiramato, amitriptilina o valproato). El tratamiento agudo de elección son los triptanos (sumatriptán). Los opioides están CONTRAINDICADOS por riesgo de cefalea por abuso. La neuroimagen se solicita solo con banderas rojas (cefalea en trueno, déficit focal, >50 años, cambio de patrón)."
+  },
+  {
+    "id": 22,
+    "tema": "Epilepsia",
+    "pregunta": "Paciente de 18 años presenta crisis tónico-clónica generalizada presenciada con pérdida de conciencia, mordedura de lengua lateral y confusión postictal de 20 minutos. Es su segunda crisis en 6 meses. EEG: descargas epileptiformes generalizadas. RMN cerebral normal. ¿Cuál es la conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Observar sin tratamiento hasta una tercera crisis",
+      "B) Iniciar monoterapia con ácido valproico o levetiracetam",
+      "C) Iniciar politerapia con tres antiepilépticos simultáneamente",
+      "D) Solicitar angiografía cerebral para descartar malformación vascular"
+    ],
+    "respuesta": "B",
+    "explicacion": "Con ≥2 crisis no provocadas separadas por >24h + EEG anormal = diagnóstico de epilepsia. Se inicia monoterapia antiepiléptica. Para epilepsia generalizada: ácido valproico (primera línea en hombres) o levetiracetam (preferido en mujeres en edad fértil por teratogenicidad del valproato). La politerapia solo se usa cuando falla la monoterapia con 2 fármacos diferentes. Importante: educar sobre conducción, alcohol y adherencia."
+  },
+  {
+    "id": 23,
+    "tema": "Demencia - Alzheimer",
+    "pregunta": "Paciente de 75 años con pérdida progresiva de memoria de 2 años, desorientación temporal y dificultad para actividades instrumentales de la vida diaria. Mini Mental: 18/30. RMN: atrofia hipocampal bilateral. ¿Cuál es la interpretación MÁS adecuada y el tratamiento inicial?",
+    "alternativas": [
+      "A) Demencia vascular: control estricto de factores de riesgo cardiovascular",
+      "B) Enfermedad de Alzheimer probable: iniciar inhibidor de colinesterasa (donepezilo)",
+      "C) Depresión con pseudodemencia: iniciar ISRS y reevaluar",
+      "D) Hidrocefalia normotensiva: derivación ventriculoperitoneal"
+    ],
+    "respuesta": "B",
+    "explicacion": "Pérdida progresiva de memoria episódica + desorientación + compromiso funcional + atrofia hipocampal bilateral = Enfermedad de Alzheimer probable. El tratamiento inicial en demencia leve-moderada (MMSE 10-26) es un inhibidor de colinesterasa: donepezilo 5-10 mg/día (o rivastigmina o galantamina). En demencia moderada-severa se agrega memantina (antagonista NMDA). La hidrocefalia normotensiva tiene tríada: demencia + trastorno de marcha + incontinencia urinaria (tríada de Hakim-Adams)."
+  },
+  {
+    "id": 24,
+    "tema": "Neuropatías Periféricas",
+    "pregunta": "Paciente diabético de 60 años con parestesias en guante y calcetín, dolor urente en pies que empeora de noche, disminución de sensibilidad vibratoria y reflejos aquíleos abolidos bilateralmente. ¿Cuál es el patrón de neuropatía y el despistaje prioritario?",
+    "alternativas": [
+      "A) Mononeuritis múltiple: solicitar vasculitis panel (ANCA, complemento)",
+      "B) Polineuropatía sensitivo-motora distal simétrica: HbA1c + perfil metabólico + vitamina B12",
+      "C) Síndrome de Guillain-Barré: punción lumbar urgente",
+      "D) Radiculopatía L5-S1: RMN lumbosacra"
+    ],
+    "respuesta": "B",
+    "explicacion": "Distribución en guante y calcetín + bilateral simétrica + dolor neuropático + reflejos distales abolidos = polineuropatía sensitivo-motora distal simétrica (la forma más común de neuropatía diabética, 75%). Despistaje: HbA1c (control glucémico), vitamina B12 (frecuente déficit en usuarios de metformina), función renal, función tiroidea y perfil hepático. El control glucémico estricto es la mejor prevención. Tratamiento del dolor: pregabalina, duloxetina o gabapentina."
+  },
+  {
+    "id": 25,
+    "tema": "Movimientos Involuntarios - Enfermedad de Parkinson",
+    "pregunta": "Paciente de 65 años con temblor de reposo en mano derecha tipo \"cuenta monedas\", rigidez en rueda dentada, bradicinesia y marcha festinante. Los síntomas iniciaron unilateralmente hace 2 años. ¿Cuál es la conducta terapéutica MÁS adecuada?",
+    "alternativas": [
+      "A) Levodopa/carbidopa como primera línea en todos los casos",
+      "B) En <70 años: agonista dopaminérgico (pramipexol); en ≥70 años: levodopa/carbidopa",
+      "C) Anticolinérgicos (trihexifenidilo) como tratamiento único de primera línea",
+      "D) Cirugía de estimulación cerebral profunda como tratamiento inicial"
+    ],
+    "respuesta": "B",
+    "explicacion": "Tétrada clásica del Parkinson: temblor de reposo + rigidez + bradicinesia + inestabilidad postural. Inicio unilateral es típico. Estrategia terapéutica: en <70 años se prefiere iniciar con agonistas dopaminérgicos (pramipexol, ropinirol) para retrasar las complicaciones motoras de la levodopa (discinesias, wearing-off). En ≥70 años: levodopa/carbidopa directamente (mejor tolerancia, menos efectos psiquiátricos). La estimulación cerebral profunda es para enfermedad avanzada con fluctuaciones motoras refractarias."
+  },
+  {
+    "id": 26,
+    "tema": "Tumores del SNC",
+    "pregunta": "Paciente de 55 años con cefalea matutina progresiva que mejora con el vómito, papiledema bilateral y hemiparesia izquierda de 3 semanas de evolución. TAC cerebral: lesión hiperdensa con refuerzo anular (en anillo) en lóbulo frontal derecho con edema perilesional importante. ¿Cuál es el diagnóstico MÁS probable?",
+    "alternativas": [
+      "A) Meningioma: resección quirúrgica curativa",
+      "B) Glioblastoma multiforme: biopsia + temozolomida + radioterapia",
+      "C) Metástasis cerebral única: buscar tumor primario",
+      "D) Absceso cerebral: antibióticos IV + drenaje"
+    ],
+    "respuesta": "B",
+    "explicacion": "Lesión con refuerzo anular (en anillo) + edema perilesional importante + localización supratentorial en adulto >50 años = glioblastoma multiforme (GBM, grado IV de la OMS) como primera sospecha. Es el tumor primario maligno del SNC más frecuente en adultos. Tratamiento: resección quirúrgica máxima + radioterapia + temozolomida (protocolo de Stupp). Mediana de supervivencia: 14-16 meses. Diagnóstico diferencial: metástasis (múltiples, usualmente) y absceso cerebral (fiebre, leucocitosis, antecedente infeccioso)."
+  },
+  {
+    "id": 27,
+    "tema": "Tuberculosis Cerebral",
+    "pregunta": "Paciente de 30 años, VIH positivo con CD4 de 80 células/µL, presenta cefalea subaguda, fiebre, confusión y parálisis del VI par craneal bilateral. LCR: pleocitosis linfocítica (300 células), proteínas muy elevadas (450 mg/dL), glucosa muy baja (15 mg/dL), ADA elevada (25 U/L). ¿Cuál es el diagnóstico MÁS probable y el tratamiento?",
+    "alternativas": [
+      "A) Meningitis criptocócica: anfotericina B + fluconazol",
+      "B) Meningitis tuberculosa: RHZE (rifampicina, isoniazida, pirazinamida, etambutol) + corticoides",
+      "C) Toxoplasmosis cerebral: pirimetamina + sulfadiazina",
+      "D) Linfoma primario del SNC: biopsia + metotrexato"
+    ],
+    "respuesta": "B",
+    "explicacion": "VIH con CD4 <100 + meningitis subaguda + LCR con pleocitosis linfocítica + glucosa MUY baja + proteínas MUY elevadas + ADA elevada (>10 U/L) + parálisis de pares craneales (el VI es el más frecuente) = meningitis tuberculosa. Tratamiento: esquema RHZE por 2 meses + RH por 7-10 meses (total 9-12 meses, más largo que la TB pulmonar) + DEXAMETASONA (reduce mortalidad en meningitis TB, evidencia clase I). La meningitis criptocócica tiene LCR con presión elevada, tinta china positiva y antígeno criptocócico positivo."
+  },
+  {
+    "id": 28,
+    "tema": "Enfermedad Vascular Cerebral Hemorrágico",
+    "pregunta": "Paciente de 62 años, hipertenso mal controlado, presenta cefalea súbita severa, vómitos, deterioro del nivel de conciencia y hemiparesia izquierda. TAC sin contraste: hematoma hiperdenso de 45 mL en ganglios basales derechos con desviación de línea media de 8 mm. ¿Cuál es la conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Trombolisis sistémica con rt-PA como en el ACV isquémico",
+      "B) Control agresivo de PA (objetivo PAS <140 mmHg) + valoración neuroquirúrgica + reversión de anticoagulación si aplica",
+      "C) Solo observación en UCI sin intervenir la presión arterial",
+      "D) Craniectomía descompresiva inmediata sin más estudios"
+    ],
+    "respuesta": "B",
+    "explicacion": "Hemorragia intracerebral hipertensiva (localización típica: ganglios basales). La trombolisis está ABSOLUTAMENTE CONTRAINDICADA en ACV hemorrágico. Manejo: (1) control de PA: reducir PAS a <140 mmHg con labetalol o nicardipina IV (estudio INTERACT2), (2) valoración neuroquirúrgica si hematoma >30 mL con efecto de masa o deterioro, (3) si toma anticoagulantes: revertir inmediatamente (vitamina K + PCC para warfarina; idarucizumab para dabigatrán). Profilaxis anticomicial si hay crisis."
   }
 ]
