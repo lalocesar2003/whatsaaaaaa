@@ -98,6 +98,34 @@ async function generateResponse(incomingMsg, conversation) {
 }
 
 /**
+ * Obtiene el número telefónico real del remitente.
+ * WhatsApp puede entregar el chat como @c.us (número) o @lid (ID anónimo);
+ * en el segundo caso hay que resolver el número desde el contacto.
+ */
+async function resolveSenderNumber(client, msg) {
+  if (msg.from.endsWith('@c.us')) return msg.from.replace('@c.us', '');
+
+  try {
+    const contact = await msg.getContact();
+    if (contact && contact.number) return String(contact.number).replace(/\D/g, '');
+  } catch (e) {
+    console.log(`⚠️ [Responder] getContact falló para ${msg.from}: ${e.message}`);
+  }
+
+  try {
+    if (typeof client.getContactLidAndPhone === 'function') {
+      const res = await client.getContactLidAndPhone([msg.from]);
+      const pn = res && res[0] && res[0].pn;
+      if (pn) return String(pn).replace(/@.*$/, '').replace(/\D/g, '');
+    }
+  } catch (e) {
+    console.log(`⚠️ [Responder] getContactLidAndPhone falló para ${msg.from}: ${e.message}`);
+  }
+
+  return null;
+}
+
+/**
  * Manejador principal de mensajes entrantes.
  * Filtra, analiza y responde solo a prospectos conocidos.
  */
@@ -107,17 +135,24 @@ async function handleIncomingMessage(client, msg) {
   // No procesar si el responder no está activo
   if (!responderActive || !openai) return;
 
-  // Ignorar mensajes de grupos
-  if (msg.from.endsWith('@g.us')) return;
+  // Ignorar mensajes de grupos, estados y difusiones
+  if (msg.from.endsWith('@g.us') || msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast')) return;
 
   // Ignorar mensajes propios
   if (msg.fromMe) return;
 
   // Ignorar mensajes vacíos o solo multimedia sin texto
-  if (!msg.body || msg.body.trim() === '') return;
+  if (!msg.body || msg.body.trim() === '') {
+    console.log(`ℹ️ [Responder] Ignorado (sin texto, tipo ${msg.type}) de ${msg.from}`);
+    return;
+  }
 
-  // Extraer número limpio
-  const number = msg.from.replace('@c.us', '');
+  // Extraer número limpio (soporta @c.us y @lid)
+  const number = await resolveSenderNumber(client, msg);
+  if (!number) {
+    console.log(`⚠️ [Responder] Ignorado: no se pudo resolver el número de ${msg.from}`);
+    return;
+  }
 
   // No responder al número del quiz (tu novia)
   if (number === config.quiz.targetNumber) return;
@@ -126,7 +161,10 @@ async function handleIncomingMessage(client, msg) {
   if (number === config.responder.cesarNumber) return;
 
   // Solo responder a prospectos de numeros.txt
-  if (!isProspectNumber(number)) return;
+  if (!isProspectNumber(number)) {
+    console.log(`ℹ️ [Responder] Ignorado: +${number} (${msg.from}) no está en numeros.txt`);
+    return;
+  }
 
   // --- CARGAR CONVERSACIÓN ---
   const conversation = loadConversation(number);
