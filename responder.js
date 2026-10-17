@@ -2,7 +2,7 @@ const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const { loadNumbers, sleep, getRandomInt, formatTime } = require('./utils');
+const { loadNumbers, loadHistory, sleep, getRandomInt, formatTime } = require('./utils');
 
 let openai = null;
 let responderActive = false;
@@ -97,32 +97,153 @@ async function generateResponse(incomingMsg, conversation) {
   }
 }
 
+// Mapa LID -> teléfono (respaldo cuando WhatsApp no expone el número)
+const lidToPhone = new Map();
+
+// Cola por prospecto: agrupa mensajes seguidos en una sola respuesta
+const pendingByNumber = new Map(); // number -> { chatId, texts: [] }
+const processingNumbers = new Set();
+
+function cleanDigits(value) {
+  return String(value || '').replace(/@.*$/, '').replace(/\D/g, '');
+}
+
+/**
+ * Consulta a WhatsApp el par { lid, pn } de uno o varios IDs.
+ */
+async function lookupLidAndPhone(client, ids) {
+  if (typeof client.getContactLidAndPhone !== 'function') return [];
+  try {
+    const res = await client.getContactLidAndPhone(ids);
+    return Array.isArray(res) ? res : [];
+  } catch (e) {
+    console.log(`⚠️ [Responder] getContactLidAndPhone falló: ${e.message}`);
+    return [];
+  }
+}
+
 /**
  * Obtiene el número telefónico real del remitente.
- * WhatsApp puede entregar el chat como @c.us (número) o @lid (ID anónimo);
- * en el segundo caso hay que resolver el número desde el contacto.
+ * WhatsApp puede entregar el chat como @c.us (número) o @lid (ID anónimo).
+ * Para @lid, contact.number devuelve los dígitos del LID, no el teléfono,
+ * así que se usa getContactLidAndPhone y el mapa LID -> teléfono.
  */
 async function resolveSenderNumber(client, msg) {
   if (msg.from.endsWith('@c.us')) return msg.from.replace('@c.us', '');
+  if (!msg.from.endsWith('@lid')) return null;
 
-  try {
-    const contact = await msg.getContact();
-    if (contact && contact.number) return String(contact.number).replace(/\D/g, '');
-  } catch (e) {
-    console.log(`⚠️ [Responder] getContact falló para ${msg.from}: ${e.message}`);
+  const [entry] = await lookupLidAndPhone(client, [msg.from]);
+  const pn = entry && cleanDigits(entry.pn);
+  if (pn) {
+    lidToPhone.set(msg.from, pn);
+    return pn;
   }
 
-  try {
-    if (typeof client.getContactLidAndPhone === 'function') {
-      const res = await client.getContactLidAndPhone([msg.from]);
-      const pn = res && res[0] && res[0].pn;
-      if (pn) return String(pn).replace(/@.*$/, '').replace(/\D/g, '');
-    }
-  } catch (e) {
-    console.log(`⚠️ [Responder] getContactLidAndPhone falló para ${msg.from}: ${e.message}`);
-  }
+  if (lidToPhone.has(msg.from)) return lidToPhone.get(msg.from);
 
   return null;
+}
+
+/**
+ * Construye el contexto para ChatGPT a partir del chat real de WhatsApp
+ * (incluye el mensaje de prospección y lo que César haya escrito a mano).
+ */
+async function buildChatContext(client, chatId, fallbackMessages) {
+  try {
+    const chat = await client.getChatById(chatId);
+    const msgs = await chat.fetchMessages({ limit: 20 });
+    const context = msgs
+      .filter(m => m.body && m.body.trim() !== '' && (m.type === 'chat' || m.type === 'image'))
+      .map(m => ({ role: m.fromMe ? 'assistant' : 'user', content: m.body }));
+    if (context.length > 0) return context;
+  } catch (e) {
+    console.log(`⚠️ [Responder] No se pudo leer el chat ${chatId}: ${e.message}`);
+  }
+  return fallbackMessages.slice(-10);
+}
+
+/**
+ * Genera y envía la respuesta para todos los mensajes acumulados de un prospecto.
+ */
+async function processQueue(client, number) {
+  if (processingNumbers.has(number)) return;
+  processingNumbers.add(number);
+
+  try {
+    while (pendingByNumber.has(number)) {
+      // --- PAUSA HUMANA (los mensajes que lleguen mientras tanto se agrupan) ---
+      const delay = getRandomInt(config.responder.replyDelay.minMs, config.responder.replyDelay.maxMs);
+      console.log(`⏳ [Responder] Esperando ${(delay / 60000).toFixed(1)} min antes de responder a +${number}...`);
+      await sleep(delay);
+
+      const { chatId, texts } = pendingByNumber.get(number);
+      pendingByNumber.delete(number);
+      const incoming = texts.join('\n');
+
+      const conversation = loadConversation(number);
+      if (conversation.closed) {
+        console.log(`🔒 [Responder] Conversación cerrada con +${number}. No se responde.`);
+        return;
+      }
+      if (conversation.replyCount >= config.responder.maxRepliesPerContact) {
+        console.log(`⚠️ [Responder] Límite de ${config.responder.maxRepliesPerContact} respuestas alcanzado para +${number}.`);
+        return;
+      }
+
+      // --- GENERAR RESPUESTA CON CHATGPT ---
+      // El chat real ya contiene los mensajes entrantes; se quitan del final para no duplicarlos
+      const context = await buildChatContext(client, chatId, conversation.messages);
+      while (context.length > 0 && context[context.length - 1].role === 'user') context.pop();
+      const result = await generateResponse(incoming, { messages: context });
+
+      if (!result.mensaje || result.mensaje.trim() === '') {
+        console.log('⚠️ [Responder] ChatGPT devolvió mensaje vacío. No se envía nada.');
+        continue;
+      }
+
+      // --- ENVIAR RESPUESTA ---
+      await client.sendMessage(chatId, result.mensaje);
+      console.log(`✅ [Responder] Respondido a +${number}: "${result.mensaje}"`);
+
+      // --- GUARDAR HISTORIAL ---
+      conversation.messages.push({ role: 'user', content: incoming });
+      conversation.messages.push({ role: 'assistant', content: result.mensaje });
+      conversation.replyCount++;
+
+      if (result.conversacionCerrada) {
+        conversation.closed = true;
+        console.log(`🔒 [Responder] Conversación con +${number} marcada como cerrada.`);
+      }
+
+      saveConversation(number, conversation);
+
+      // --- NOTIFICAR A CÉSAR SI SE AGENDÓ UNA CITA ---
+      if (result.citaAgendada) {
+        const notifChatId = `${config.responder.cesarNumber}@c.us`;
+        const notifMsg =
+          `🔔 *¡CITA AGENDADA!*\n\n` +
+          `📱 Prospecto: +${number}\n` +
+          `📝 ${result.resumen}\n` +
+          `⏰ Notificado: ${formatTime(new Date())}\n\n` +
+          `💡 Revisa la conversación completa en los logs del servidor.`;
+
+        await client.sendMessage(notifChatId, notifMsg);
+        console.log(`🔔 [Responder] ¡César notificado! Cita agendada con +${number}: ${result.resumen}`);
+      }
+    }
+  } catch (err) {
+    console.error(`❌ [Responder] Error respondiendo a +${number}:`, err.message);
+  } finally {
+    processingNumbers.delete(number);
+  }
+}
+
+function enqueue(client, number, chatId, text) {
+  const entry = pendingByNumber.get(number) || { chatId, texts: [] };
+  entry.chatId = chatId;
+  entry.texts.push(text);
+  pendingByNumber.set(number, entry);
+  processQueue(client, number);
 }
 
 /**
@@ -136,28 +257,28 @@ async function handleIncomingMessage(client, msg) {
   if (!responderActive || !openai) return;
 
   // Ignorar mensajes de grupos, estados y difusiones
-  if (msg.from.endsWith('@g.us') || msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast')) return;
+  if (msg.from.endsWith('@g.us') || msg.from.endsWith('@broadcast')) return;
 
   // Ignorar mensajes propios
   if (msg.fromMe) return;
 
-  // Ignorar mensajes vacíos o solo multimedia sin texto
+  // Ignorar notificaciones de sistema y mensajes sin texto
   if (!msg.body || msg.body.trim() === '') {
-    console.log(`ℹ️ [Responder] Ignorado (sin texto, tipo ${msg.type}) de ${msg.from}`);
+    if (!['e2e_notification', 'notification_template'].includes(msg.type)) {
+      console.log(`ℹ️ [Responder] Ignorado (sin texto, tipo ${msg.type}) de ${msg.from}`);
+    }
     return;
   }
 
   // Extraer número limpio (soporta @c.us y @lid)
   const number = await resolveSenderNumber(client, msg);
   if (!number) {
-    console.log(`⚠️ [Responder] Ignorado: no se pudo resolver el número de ${msg.from}`);
+    console.log(`⚠️ [Responder] Ignorado: no se pudo resolver el teléfono de ${msg.from}`);
     return;
   }
 
-  // No responder al número del quiz (tu novia)
+  // No responder al número del quiz (tu novia) ni a tu número personal
   if (number === config.quiz.targetNumber) return;
-
-  // No responder a tu número personal
   if (number === config.responder.cesarNumber) return;
 
   // Solo responder a prospectos de numeros.txt
@@ -166,72 +287,71 @@ async function handleIncomingMessage(client, msg) {
     return;
   }
 
-  // --- CARGAR CONVERSACIÓN ---
-  const conversation = loadConversation(number);
-
-  // Si la conversación fue cerrada (prospecto dijo "no me interesa"), no responder más
-  if (conversation.closed) {
-    console.log(`🔒 [Responder] Conversación cerrada con +${number}. No se responde.`);
-    return;
-  }
-
-  // Verificar límite de respuestas por contacto
-  if (conversation.replyCount >= config.responder.maxRepliesPerContact) {
-    console.log(`⚠️ [Responder] Límite de ${config.responder.maxRepliesPerContact} respuestas alcanzado para +${number}.`);
-    return;
-  }
-
   console.log(`\n💬 [Responder] (${formatTime(new Date())}) Mensaje de +${number}: "${msg.body}"`);
-
-  try {
-    // --- PAUSA HUMANA ---
-    const delay = getRandomInt(config.responder.replyDelay.minMs, config.responder.replyDelay.maxMs);
-    const delayMin = (delay / 60000).toFixed(1);
-    console.log(`⏳ [Responder] Esperando ${delayMin} min antes de responder...`);
-    await sleep(delay);
-
-    // --- GENERAR RESPUESTA CON CHATGPT ---
-    const result = await generateResponse(msg.body, conversation);
-
-    if (!result.mensaje || result.mensaje.trim() === '') {
-      console.log('⚠️ [Responder] ChatGPT devolvió mensaje vacío. No se envía nada.');
-      return;
-    }
-
-    // --- ENVIAR RESPUESTA ---
-    await client.sendMessage(msg.from, result.mensaje);
-    console.log(`✅ [Responder] Respondido a +${number}: "${result.mensaje}"`);
-
-    // --- GUARDAR HISTORIAL ---
-    conversation.messages.push({ role: 'user', content: msg.body });
-    conversation.messages.push({ role: 'assistant', content: result.mensaje });
-    conversation.replyCount++;
-
-    // Detectar si la conversación se cerró (prospecto no interesado)
-    if (result.conversacionCerrada) {
-      conversation.closed = true;
-      console.log(`🔒 [Responder] Conversación con +${number} marcada como cerrada.`);
-    }
-
-    saveConversation(number, conversation);
-
-    // --- NOTIFICAR A CÉSAR SI SE AGENDÓ UNA CITA ---
-    if (result.citaAgendada) {
-      const notifChatId = `${config.responder.cesarNumber}@c.us`;
-      const notifMsg =
-        `🔔 *¡CITA AGENDADA!*\n\n` +
-        `📱 Prospecto: +${number}\n` +
-        `📝 ${result.resumen}\n` +
-        `⏰ Notificado: ${formatTime(new Date())}\n\n` +
-        `💡 Revisa la conversación completa en los logs del servidor.`;
-
-      await client.sendMessage(notifChatId, notifMsg);
-      console.log(`🔔 [Responder] ¡César notificado! Cita agendada con +${number}: ${result.resumen}`);
-    }
-
-  } catch (err) {
-    console.error(`❌ [Responder] Error respondiendo a +${number}:`, err.message);
-  }
+  enqueue(client, number, msg.from, msg.body);
 }
 
-module.exports = { initResponder, handleIncomingMessage };
+/**
+ * Al arrancar: busca prospectos que escribieron y no recibieron respuesta
+ * (mensajes que llegaron con el bot apagado o que fueron descartados) y los responde.
+ */
+async function processPendingReplies(client) {
+  if (!responderActive || !openai) return;
+
+  const maxAgeMs = (config.responder.catchUpDays || 3) * 24 * 60 * 60 * 1000;
+  const history = loadHistory(config.historyFile);
+  const contacted = [...new Set(
+    history.sent
+      .filter(h => h.status === 'ENVIADO' && Date.now() - new Date(h.date).getTime() < 30 * 24 * 60 * 60 * 1000)
+      .map(h => h.number)
+  )];
+
+  console.log(`🔎 [Responder] Revisando ${contacted.length} prospectos contactados por mensajes sin responder...`);
+
+  // Mapear LID -> teléfono de los prospectos contactados
+  const pairs = await lookupLidAndPhone(client, contacted.map(n => `${n}@c.us`));
+  const phoneToLid = new Map();
+  for (const p of pairs) {
+    const pn = cleanDigits(p.pn);
+    if (p.lid && pn) {
+      lidToPhone.set(p.lid, pn);
+      phoneToLid.set(pn, p.lid);
+    }
+  }
+
+  let found = 0;
+  for (const number of contacted) {
+    const conversation = loadConversation(number);
+    if (conversation.closed || conversation.replyCount >= config.responder.maxRepliesPerContact) continue;
+
+    const candidates = [phoneToLid.get(number), `${number}@c.us`].filter(Boolean);
+    for (const chatId of candidates) {
+      try {
+        const chat = await client.getChatById(chatId);
+        const msgs = await chat.fetchMessages({ limit: 20 });
+        if (msgs.length === 0) continue;
+
+        const lastMineIdx = msgs.map(m => m.fromMe).lastIndexOf(true);
+        if (lastMineIdx === -1) break;
+
+        const unanswered = msgs
+          .slice(lastMineIdx + 1)
+          .filter(m => !m.fromMe && m.body && m.body.trim() !== '' && Date.now() - m.timestamp * 1000 < maxAgeMs);
+
+        if (unanswered.length > 0) {
+          found++;
+          const texts = unanswered.map(m => m.body);
+          console.log(`📬 [Responder] +${number} tiene ${texts.length} mensaje(s) sin responder: "${texts.join(' / ')}"`);
+          for (const t of texts) enqueue(client, number, chat.id._serialized, t);
+        }
+        break;
+      } catch (e) {
+        // Probar el siguiente ID candidato
+      }
+    }
+  }
+
+  console.log(`🔎 [Responder] Revisión inicial completada: ${found} prospecto(s) con mensajes pendientes.`);
+}
+
+module.exports = { initResponder, handleIncomingMessage, processPendingReplies };

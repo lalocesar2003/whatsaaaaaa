@@ -24,7 +24,7 @@ const {
   formatQuestionMessage,
   formatAnswerMessage
 } = require('./quiz');
-const { initResponder, handleIncomingMessage } = require('./responder');
+const { initResponder, handleIncomingMessage, processPendingReplies } = require('./responder');
 
 // Estado global de la aplicación
 let clientReady = false;
@@ -111,8 +111,12 @@ client.on('ready', async () => {
   // Inicializar el quiz
   scheduleNextQuiz();
 
-  // Inicializar el auto-responder con ChatGPT
-  initResponder();
+  // Inicializar el auto-responder con ChatGPT y responder lo que quedó pendiente
+  if (initResponder()) {
+    processPendingReplies(client).catch((err) => {
+      console.error('❌ [Responder] Error revisando mensajes pendientes:', err.message);
+    });
+  }
 });
 
 // Listener de mensajes entrantes: auto-responder a prospectos
