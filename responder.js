@@ -318,6 +318,7 @@ async function processPendingReplies(client) {
       phoneToLid.set(pn, p.lid);
     }
   }
+  console.log(`🔗 [Responder] LIDs mapeados: ${phoneToLid.size}/${contacted.length}`);
 
   let found = 0;
   for (const number of contacted) {
@@ -328,11 +329,12 @@ async function processPendingReplies(client) {
     for (const chatId of candidates) {
       try {
         const chat = await client.getChatById(chatId);
-        const msgs = await chat.fetchMessages({ limit: 20 });
+        const msgs = await chat.fetchMessages({ limit: 60 });
         if (msgs.length === 0) continue;
 
+        // Si no aparece ningún mensaje propio (p. ej. el prospecto mandó muchas fotos),
+        // todo lo visible es posterior a nuestro último mensaje
         const lastMineIdx = msgs.map(m => m.fromMe).lastIndexOf(true);
-        if (lastMineIdx === -1) break;
 
         const unanswered = msgs
           .slice(lastMineIdx + 1)
@@ -346,7 +348,7 @@ async function processPendingReplies(client) {
         }
         break;
       } catch (e) {
-        // Probar el siguiente ID candidato
+        console.log(`⚠️ [Responder] No se pudo revisar ${chatId} (+${number}): ${e.message}`);
       }
     }
   }
