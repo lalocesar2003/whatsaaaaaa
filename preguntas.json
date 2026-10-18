@@ -362,5 +362,265 @@
     ],
     "respuesta": "B",
     "explicacion": "Hemorragia intracerebral hipertensiva (localización típica: ganglios basales). La trombolisis está ABSOLUTAMENTE CONTRAINDICADA en ACV hemorrágico. Manejo: (1) control de PA: reducir PAS a <140 mmHg con labetalol o nicardipina IV (estudio INTERACT2), (2) valoración neuroquirúrgica si hematoma >30 mL con efecto de masa o deterioro, (3) si toma anticoagulantes: revertir inmediatamente (vitamina K + PCC para warfarina; idarucizumab para dabigatrán). Profilaxis anticomicial si hay crisis."
+  },
+  {
+    "id": 29,
+    "tema": "Bioseguridad - MRSA Intrahospitalario",
+    "pregunta": "Paciente de 58 años, hospitalizado hace 12 días por cirugía abdominal, presenta fiebre 39°C, eritema y secreción purulenta en herida quirúrgica. El cultivo reporta Staphylococcus aureus resistente a meticilina (MRSA). ¿Cuál es el antibiótico de elección?",
+    "alternativas": [
+      "A) Oxacilina IV a dosis altas",
+      "B) Vancomicina IV",
+      "C) Amoxicilina-ácido clavulánico VO",
+      "D) Cefalexina VO por 10 días"
+    ],
+    "respuesta": "B",
+    "explicacion": "MRSA es resistente a TODOS los betalactámicos (oxacilina, cefalosporinas, carbapenémicos) por modificación de la PBP2a (gen mecA). El tratamiento de elección es vancomicina IV (glucopéptido que actúa en la pared celular por mecanismo diferente). Alternativas: linezolid (VO disponible), daptomicina (no para neumonía), trimetoprim-sulfametoxazol (infecciones leves). En MRSA comunitario (CA-MRSA) con infección leve de piel: TMP-SMX o clindamicina VO pueden ser suficientes."
+  },
+  {
+    "id": 30,
+    "tema": "Fiebre Tifoidea - Salmonella typhi",
+    "pregunta": "Paciente de 25 años, viajero a zona rural, presenta fiebre escalonada de 10 días que alcanza 40°C, bradicardia relativa (FC 78 con fiebre de 40°C), dolor abdominal difuso, hepatoesplenomegalia y manchas rosadas en tronco. Hemograma: leucopenia con desviación izquierda. ¿Cuál es el estudio diagnóstico MÁS específico en esta fase?",
+    "alternativas": [
+      "A) Coprocultivo seriado",
+      "B) Hemocultivo (sensibilidad del 60-80% en la primera semana)",
+      "C) Reacción de Widal (aglutinación de antígenos O y H)",
+      "D) Mielocultivo (sensibilidad >90%, incluso con antibióticos previos)"
+    ],
+    "respuesta": "D",
+    "explicacion": "La fiebre escalonada + bradicardia relativa (signo de Faget) + leucopenia + roséola tifoidea + hepatoesplenomegalia = fiebre tifoidea (S. typhi). El mielocultivo (cultivo de médula ósea) es el más sensible (>90%) incluso en pacientes que ya recibieron antibióticos, pero es invasivo. En la práctica, el hemocultivo es el más usado (60-80% en primera semana). La reacción de Widal tiene baja especificidad (falsos positivos). El coprocultivo es más útil para portadores crónicos. Tratamiento: ciprofloxacino o ceftriaxona."
+  },
+  {
+    "id": 31,
+    "tema": "Dengue - Signos de Alarma",
+    "pregunta": "Paciente de 30 años en zona endémica presenta fiebre de 5 días, mialgias, cefalea retroorbital y exantema. Al 6° día la fiebre cede pero aparece dolor abdominal intenso, vómitos persistentes, hepatomegalia dolorosa y hematocrito que sube de 38% a 46% en 24 horas. Plaquetas: 65,000/mm³. ¿Cuál es la clasificación y conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Dengue sin signos de alarma: manejo ambulatorio con hidratación oral",
+      "B) Dengue con signos de alarma: hospitalización con hidratación IV con cristaloides",
+      "C) Dengue grave (shock): coloides IV + vasopresores inmediatos",
+      "D) Fiebre hemorrágica: transfusión de plaquetas urgente"
+    ],
+    "respuesta": "B",
+    "explicacion": "Signos de alarma del dengue (OMS): dolor abdominal intenso, vómitos persistentes, acumulación de líquidos (ascitis, derrame), sangrado de mucosas, letargia, hepatomegalia >2 cm, hemoconcentración (hematocrito que sube ≥20%). Este paciente tiene VARIOS signos de alarma. Conducta: hospitalización + hidratación IV con cristaloides isotónicos (SSN 0.9% o Ringer Lactato) a 5-7 mL/kg/h por 1-2 horas, luego ajustar. NO transfundir plaquetas salvo sangrado activo grave. El momento crítico es la defervescencia (cuando baja la fiebre), que es cuando ocurre la fuga plasmática."
+  },
+  {
+    "id": 32,
+    "tema": "Malaria por Plasmodium falciparum - Paludismo Grave",
+    "pregunta": "Paciente de 35 años que regresa de la selva amazónica presenta fiebre intermitente, escalofríos y sudoración profusa hace 5 días. Ahora presenta confusión, ictericia, hemoglobina 5.8 g/dL, creatinina 4.2 mg/dL y parasitemia del 8% en gota gruesa con formas en anillo de Plasmodium falciparum. ¿Cuál es el tratamiento indicado?",
+    "alternativas": [
+      "A) Cloroquina oral por 3 días + primaquina por 14 días",
+      "B) Artesunato IV + clindamicina, con control de parasitemia cada 12 horas",
+      "C) Quinina oral + doxiciclina por 7 días",
+      "D) Mefloquina oral dosis única como tratamiento y profilaxis"
+    ],
+    "respuesta": "B",
+    "explicacion": "Criterios de malaria grave (OMS): alteración de conciencia (malaria cerebral), anemia severa (Hb <7), IRA (creatinina >3), parasitemia >5%, ictericia, hipoglucemia, acidosis, edema pulmonar. Este paciente cumple VARIOS criterios. Tratamiento: artesunato IV (derivado de artemisinina, actúa más rápido que quinina, menos efectos adversos) + segundo fármaco (clindamicina o doxiciclina). La cloroquina NO sirve para P. falciparum (resistencia casi universal). La primaquina es para erradicar hipnozoítos de P. vivax/ovale (no falciparum). Monitorizar glucosa (hipoglucemia por quinina)."
+  },
+  {
+    "id": 33,
+    "tema": "VIH/SIDA - Diagnóstico e Inicio de TARV",
+    "pregunta": "Paciente de 28 años con pérdida de peso de 10 kg en 3 meses, diarrea crónica, candidiasis oral extensa y adenopatías generalizadas. Prueba rápida de VIH: reactiva. ELISA VIH: reactivo. CD4: 85 células/µL. Carga viral: 250,000 copias/mL. ¿Cuál es la conducta MÁS adecuada respecto al inicio del TARV?",
+    "alternativas": [
+      "A) Esperar a que el CD4 baje a <50 para iniciar TARV y reducir el síndrome de reconstitución inmune",
+      "B) Iniciar TARV lo antes posible con esquema de primera línea (2 ITIAN + 1 ITINN o inhibidor de integrasa)",
+      "C) Primero tratar todas las infecciones oportunistas durante 6 meses, luego iniciar TARV",
+      "D) Solo profilaxis con TMP-SMX sin TARV hasta mejoría clínica"
+    ],
+    "respuesta": "B",
+    "explicacion": "Recomendación actual (OMS/MINSA): iniciar TARV en TODO paciente con VIH independientemente del CD4 o carga viral ('test and treat'). Con CD4 <200 es URGENTE. Esquema de primera línea recomendado: TDF (tenofovir) + FTC (emtricitabina) o 3TC (lamivudina) + DTG (dolutegravir, inhibidor de integrasa, preferido por alta barrera genética). Antes de iniciar TARV en CD4 <200: descartar TB activa y criptococosis (antígeno criptocócico si CD4 <100). Iniciar profilaxis con TMP-SMX si CD4 <200 (previene Pneumocystis y toxoplasma). La candidiasis oral indica SIDA (categoría C)."
+  },
+  {
+    "id": 34,
+    "tema": "Mordedura de Serpiente - Ofidismo",
+    "pregunta": "Paciente de 40 años, agricultor, presenta mordedura en pierna derecha por serpiente tipo Bothrops (jergón) hace 2 horas. La pierna muestra edema progresivo hasta el muslo, equimosis extensa, flictenas y sangrado activo por los puntos de mordedura que no coagula. Tiempo de coagulación: >30 minutos (no coagulable). Plaquetas: 45,000/mm³. ¿Cuál es la conducta prioritaria?",
+    "alternativas": [
+      "A) Torniquete proximal + succión del veneno + incisión de los colmillos",
+      "B) Suero antiofídico polivalente IV + hidratación + observación en UCI por 24-48 horas",
+      "C) Solo antibióticos profilácticos y analgésicos, el veneno se neutraliza solo",
+      "D) Amputación de urgencia para evitar la diseminación del veneno"
+    ],
+    "respuesta": "B",
+    "explicacion": "Accidente bothrópico (jergón/terciopelo): veneno proteolítico + coagulante + hemorrágico. Produce: edema local progresivo, equimosis, necrosis, coagulopatía de consumo (tiempo de coagulación prolongado, trombocitopenia) y sangrado. Tratamiento: (1) suero antiofídico polivalente IV lo antes posible (dosis según gravedad), (2) hidratación IV (prevenir IRA por mioglobinuria/hemoglobinuria), (3) profilaxis antitetánica, (4) observación mínimo 24-48h. CONTRAINDICADO: torniquete (aumenta necrosis local), succión, incisiones, crioterapia, uso de corticoides como tratamiento primario. La fasciotomía solo si hay síndrome compartimental documentado."
+  },
+  {
+    "id": 35,
+    "tema": "Insuficiencia Respiratoria - Tipo I vs Tipo II",
+    "pregunta": "Paciente de 70 años con EPOC presenta disnea severa, uso de músculos accesorios y cianosis. Gasometría arterial: pH 7.28, PaO2 50 mmHg, PaCO2 72 mmHg, HCO3 34 mEq/L, SatO2 82%. ¿Cuál es la interpretación MÁS adecuada y la conducta inicial?",
+    "alternativas": [
+      "A) Insuficiencia respiratoria tipo I (hipoxémica): oxígeno a alto flujo con máscara de reservorio al 100%",
+      "B) Insuficiencia respiratoria tipo II (hipercápnica): ventilación mecánica no invasiva (BiPAP) + O2 controlado",
+      "C) Acidosis metabólica pura: bicarbonato IV urgente",
+      "D) Gasometría normal para un paciente con EPOC: solo observación"
+    ],
+    "respuesta": "B",
+    "explicacion": "IR tipo I (hipoxémica): PaO2 <60 con PaCO2 normal o baja (neumonía, TEP, SDRA). IR tipo II (hipercápnica): PaO2 <60 + PaCO2 >50 (EPOC exacerbado, enfermedades neuromusculares). Este paciente tiene IR tipo II: PaCO2 72 + PaO2 50. El HCO3 elevado (34) indica compensación renal crónica (retención crónica de CO2). Tratamiento: VNI con BiPAP (reduce mortalidad en EPOC exacerbado con acidosis respiratoria). O2 a BAJO flujo (objetivo SatO2 88-92%) porque en EPOC el estímulo respiratorio depende de la hipoxemia. O2 a alto flujo puede suprimir el drive respiratorio y empeorar la hipercapnia."
+  },
+  {
+    "id": 36,
+    "tema": "Neumonía Adquirida en la Comunidad (NAC)",
+    "pregunta": "Paciente de 68 años, diabético, presenta fiebre 39.5°C, tos productiva con esputo herrumbroso, dolor pleurítico derecho y disnea de 3 días. PA: 85/50 mmHg, FR: 32 rpm, confusión. Rx tórax: consolidación lobar en lóbulo inferior derecho. BUN: 28 mg/dL. ¿Cuál es la puntuación CURB-65 y el manejo indicado?",
+    "alternativas": [
+      "A) CURB-65 = 1: tratamiento ambulatorio con amoxicilina oral",
+      "B) CURB-65 = 2: hospitalización en sala general con ampicilina IV",
+      "C) CURB-65 = 4: UCI + ceftriaxona IV + macrólido (azitromicina o claritromicina) IV",
+      "D) CURB-65 = 3: hospitalización con levofloxacino oral solamente"
+    ],
+    "respuesta": "C",
+    "explicacion": "CURB-65: Confusión (SÍ=1), Urea/BUN >19/7mmol/L (BUN 28=SÍ=1), Respiración ≥30 (FR 32=SÍ=1), Blood pressure PAS<90 o PAD≤60 (85/50=SÍ=1), edad ≥65 (68=SÍ=1). Total = 4. Score ≥3 = neumonía grave, ingreso a UCI. Esputo herrumbroso = clásico de S. pneumoniae (causa #1 de NAC). Tratamiento NAC grave: betalactámico IV (ceftriaxona o ampicilina-sulbactam) + macrólido IV (azitromicina) o fluoroquinolona respiratoria (levofloxacino). La terapia combinada cubre atípicos (Legionella, Mycoplasma) y tiene efecto sinérgico antiinflamatorio."
+  },
+  {
+    "id": 37,
+    "tema": "Tuberculosis Pulmonar",
+    "pregunta": "Paciente de 35 años con tos productiva de 3 semanas, sudoración nocturna, pérdida de peso y febrícula vespertina. Rx tórax: infiltrado en lóbulo superior derecho con caverna. Baciloscopia de esputo: BAAR positivo (++). ¿Cuál es el esquema de tratamiento y su duración?",
+    "alternativas": [
+      "A) Isoniazida monoterapia por 9 meses",
+      "B) Fase 1: RHZE por 2 meses + Fase 2: RH por 4 meses (total 6 meses)",
+      "C) Rifampicina + ciprofloxacino por 12 meses",
+      "D) Estreptomicina IM + etambutol por 18 meses"
+    ],
+    "respuesta": "B",
+    "explicacion": "TB pulmonar caso nuevo con BAAR(+): esquema estándar RHZE. Fase 1 (intensiva): 2 meses de Rifampicina + Isoniazida + Pirazinamida + Etambutol (diario). Fase 2 (mantenimiento): 4 meses de Rifampicina + Isoniazida (diario o intermitente). Total: 6 meses. La caverna en lóbulo superior es la localización clásica de TB por reactivación (mayor PaO2 en ápices favorece al bacilo). El tratamiento debe ser supervisado (DOTS/TAES). La isoniazida se acompaña de piridoxina (B6) para prevenir neuropatía periférica. Control con baciloscopia al 2°, 4° y 6° mes."
+  },
+  {
+    "id": 38,
+    "tema": "EPOC - Exacerbación Aguda",
+    "pregunta": "Paciente de 65 años, fumador de 40 paquetes-año, con diagnóstico de EPOC GOLD D, presenta aumento de disnea, esputo purulento y fiebre de 2 días. Espirometría basal: FEV1/FVC 0.58, FEV1 35% del predicho. Gasometría actual: pH 7.32, PaCO2 58, PaO2 55. ¿Cuál es el manejo de la exacerbación?",
+    "alternativas": [
+      "A) Solo aumentar la dosis de su inhalador de mantenimiento (LABA)",
+      "B) Broncodilatadores de acción corta nebulizados (SABA+SAMA) + corticoides sistémicos + antibiótico + O2 controlado + considerar VNI",
+      "C) Oxígeno a alto flujo al 100% + aminofilina IV como primera línea",
+      "D) Intubación orotraqueal inmediata sin intentar VNI"
+    ],
+    "respuesta": "B",
+    "explicacion": "Exacerbación de EPOC con los 3 criterios de Anthonisen (aumento de disnea, aumento del volumen del esputo, purulencia) = exacerbación tipo 1 (grave). Manejo: (1) Broncodilatadores de acción corta: salbutamol + ipratropio nebulizados, (2) Corticoides sistémicos: prednisona 40 mg/día por 5 días (reduce recaídas), (3) Antibiótico: amoxicilina-clavulánico o macrólido (esputo purulento + fiebre), (4) O2 controlado: objetivo SatO2 88-92% (NO al 100%, riesgo de narcosis por CO2), (5) VNI (BiPAP) si pH <7.35 con hipercapnia (este paciente: pH 7.32 → indicación de VNI). La aminofilina IV ya no es primera línea por estrecho margen terapéutico."
+  },
+  {
+    "id": 39,
+    "tema": "Asma Bronquial - Crisis Asmática Severa",
+    "pregunta": "Paciente de 22 años, asmática conocida, llega a urgencias con disnea severa, sibilancias espiratorias bilaterales difusas, uso de músculos accesorios, no puede completar frases. FR: 35 rpm, FC: 130 lpm, SatO2: 88%, FEP (flujo espiratorio pico): 30% del predicho. ¿Cuál es la conducta terapéutica inmediata?",
+    "alternativas": [
+      "A) Salbutamol inhalado 2 puffs cada 6 horas y reevaluar al día siguiente",
+      "B) Salbutamol nebulizado continuo + ipratropio + corticoide sistémico IV + O2 + sulfato de magnesio IV",
+      "C) Teofilina IV como primera línea + adrenalina subcutánea",
+      "D) Solo corticoides inhalados a dosis alta y observación"
+    ],
+    "respuesta": "B",
+    "explicacion": "Crisis asmática grave/severa: no completa frases, FR >30, FC >120, SatO2 <90%, FEP <33%. Manejo escalonado: (1) O2 para mantener SatO2 >93%, (2) Salbutamol nebulizado (2.5-5 mg) cada 20 min x 3, o nebulización continua, (3) Ipratropio nebulizado (500 µg) se agrega en crisis severa, (4) Corticoides sistémicos PRECOCES: metilprednisolona IV o hidrocortisona IV (actúan en 4-6h, por eso iniciar temprano), (5) Sulfato de magnesio IV 2g en 20 min (broncodilatador en crisis refractaria, reduce hospitalizaciones). Si no mejora: considerar adrenalina IM o intubación. Nunca sedar al paciente asmático en crisis."
+  },
+  {
+    "id": 40,
+    "tema": "Derrame Pleural - Criterios de Light",
+    "pregunta": "Paciente de 55 años con disnea progresiva, matidez y abolición del murmullo vesicular en hemitórax derecho. Rx tórax: opacidad homogénea con menisco cóncavo en base derecha. Toracocentesis: proteínas en líquido 4.2 g/dL (sérica 6.5 g/dL), LDH en líquido 280 U/L (sérica 400 U/L), pH 7.18, glucosa 35 mg/dL, leucocitos 15,000 con 90% de PMN. ¿Cuál es la interpretación y conducta?",
+    "alternativas": [
+      "A) Trasudado por insuficiencia cardíaca: diuréticos sin necesidad de drenaje",
+      "B) Exudado con criterios de derrame complicado (empiema): drenaje con tubo de tórax + antibióticos IV",
+      "C) Exudado simple: solo antibióticos orales y control ambulatorio",
+      "D) Hemotórax: cirugía torácica urgente"
+    ],
+    "respuesta": "B",
+    "explicacion": "Criterios de Light (1 positivo = exudado): proteínas LP/sérica >0.5 (4.2/6.5=0.64 ✓), LDH LP/sérica >0.6 (280/400=0.70 ✓), LDH LP >2/3 del límite superior sérico. Es un EXUDADO. Además: pH <7.20, glucosa <40 mg/dL, predominio de PMN = derrame paraneumónico COMPLICADO (o empiema si pus franca). Estos criterios indican que el derrame no se resolverá solo con antibióticos y requiere DRENAJE con tubo de tórax. Si es loculado: fibrinolíticos intrapleurales (alteplasa + DNasa) o VATS. Trasudado (ICC, cirrosis, síndrome nefrótico): proteínas y LDH bajos, bilateral, responde a diuréticos."
+  },
+  {
+    "id": 41,
+    "tema": "ECG - Fibrilación Auricular",
+    "pregunta": "Paciente de 72 años con palpitaciones irregulares, disnea y mareo de 2 días. ECG: ritmo irregularmente irregular, ausencia de ondas P, frecuencia ventricular de 145 lpm, complejos QRS estrechos. Antecedentes: HTA, DM2, ICC previa con FEVI 40%. CHA₂DS₂-VASc: 5 puntos. ¿Cuál es la conducta respecto a la anticoagulación?",
+    "alternativas": [
+      "A) Solo aspirina 100 mg/día por ser bajo riesgo embólico",
+      "B) Anticoagulación oral indefinida con ACOD (apixaban, rivaroxaban) o warfarina (INR 2-3)",
+      "C) Cardioversión eléctrica inmediata sin anticoagulación previa",
+      "D) No anticoagular por riesgo de sangrado en paciente anciano"
+    ],
+    "respuesta": "B",
+    "explicacion": "FA: ritmo irregularmente irregular + ausencia de ondas P + QRS estrecho (confirmado). CHA₂DS₂-VASc ≥2 en hombres o ≥3 en mujeres = anticoagulación oral OBLIGATORIA. Componentes: C=ICC(1), H=HTA(1), A₂=edad≥75(2), D=DM(1), S₂=stroke previo(2), V=vascular(1), A=65-74(1), Sc=sexo femenino(1). Con 5 puntos: alto riesgo embólico. ACOD (apixaban, rivaroxaban, edoxaban) preferidos sobre warfarina (menos sangrado intracraneal, no requieren INR). La aspirina sola NO es suficiente. Para control de FC en FA con FEVI reducida: betabloqueadores (evitar verapamilo/diltiazem con FEVI<40%)."
+  },
+  {
+    "id": 42,
+    "tema": "Insuficiencia Cardíaca - FEVI Reducida",
+    "pregunta": "Paciente de 62 años con disnea de esfuerzo progresiva, ortopnea, crepitantes bibasales, edema de miembros inferiores y hepatomegalia. Ecocardiograma: FEVI 30%, dilatación del VI. NT-proBNP: 4500 pg/mL. NYHA clase III. ¿Cuál es el pilar farmacológico que ha demostrado reducir mortalidad?",
+    "alternativas": [
+      "A) Digoxina + furosemida + amlodipino",
+      "B) IECA/ARA-II (o sacubitril-valsartán) + betabloqueador + antagonista de mineralocorticoides + iSGLT2",
+      "C) Calcioantagonistas (verapamilo) + hidralazina + diuréticos tiazídicos",
+      "D) Solo diuréticos de asa a dosis crecientes como tratamiento único"
+    ],
+    "respuesta": "B",
+    "explicacion": "ICC con FEVI reducida (≤40%): los '4 pilares' con beneficio en mortalidad son: (1) IECA/ARA-II (enalapril, losartán) o preferiblemente sacubitril-valsartán (ARNI, estudio PARADIGM-HF), (2) Betabloqueador (carvedilol, bisoprolol o metoprolol succinato — solo estos 3), (3) Antagonista de mineralocorticoides (espironolactona o eplerenona, estudio RALES), (4) iSGLT2 (dapagliflozina, empagliflozina — estudios DAPA-HF, EMPEROR). La furosemida solo para síntomas congestivos (no reduce mortalidad). Los calcioantagonistas no dihidropiridínicos (verapamilo, diltiazem) están CONTRAINDICADOS en FEVI reducida."
+  },
+  {
+    "id": 43,
+    "tema": "HTA - Crisis Hipertensiva",
+    "pregunta": "Paciente de 55 años llega a urgencias con PA 220/130 mmHg, cefalea intensa, visión borrosa, papiledema bilateral, creatinina 2.8 mg/dL (basal 1.0) y proteinuria en tira reactiva +++. ¿Cuál es la clasificación y la conducta MÁS adecuada?",
+    "alternativas": [
+      "A) Urgencia hipertensiva: reducir PA con captopril sublingual y dar de alta con antihipertensivos orales",
+      "B) Emergencia hipertensiva: antihipertensivo IV (nitroprusiato o labetalol IV), reducir PAM no más del 25% en la primera hora",
+      "C) HTA severa sin complicaciones: iniciar 3 antihipertensivos orales simultáneamente",
+      "D) Emergencia hipertensiva: reducir PA a valores normales (<120/80) en los primeros 30 minutos"
+    ],
+    "respuesta": "B",
+    "explicacion": "PA ≥180/120 + daño de órgano blanco (DOB) = EMERGENCIA hipertensiva. DOB presente: encefalopatía hipertensiva (cefalea, visión borrosa, papiledema), nefropatía aguda (creatinina elevada, proteinuria). Tratamiento: antihipertensivo IV (labetalol, nitroprusiato, nicardipina). Meta: reducir PAM no más del 25% en la primera hora, luego gradualmente a 160/100 en 2-6 horas. Reducir demasiado rápido causa isquemia cerebral/coronaria. URGENCIA hipertensiva = PA elevada SIN DOB → antihipertensivos orales. El captopril sublingual ya NO se recomienda (absorción errática, descenso brusco no controlable)."
+  },
+  {
+    "id": 44,
+    "tema": "Síndrome Coronario Agudo - IAMCEST",
+    "pregunta": "Paciente de 58 años, fumador, llega con dolor torácico opresivo de 45 minutos irradiado a brazo izquierdo y mandíbula, diaforesis y náuseas. ECG: elevación del ST >2 mm en DII, DIII y aVF con depresión recíproca en DI y aVL. Troponina I: 8.5 ng/mL (VN <0.04). ¿Cuál es la conducta terapéutica prioritaria?",
+    "alternativas": [
+      "A) Trombolisis IV con tenecteplasa si no hay acceso a hemodinámica en <120 minutos",
+      "B) Solo anticoagulación con heparina y observación en UCI",
+      "C) Ergometría (prueba de esfuerzo) para confirmar isquemia antes de decidir",
+      "D) Angioplastia primaria electiva para la próxima semana"
+    ],
+    "respuesta": "A",
+    "explicacion": "IAMCEST (ST elevado en DII, DIII, aVF = infarto inferior, arteria coronaria derecha). Tiempo es músculo: (1) Si hay sala de hemodinámica disponible en <120 min: angioplastia primaria con stent (ICP, preferida). (2) Si NO hay hemodinámica disponible en <120 min: trombolisis IV (tenecteplasa, alteplasa o estreptoquinasa) dentro de las primeras 12h del inicio de síntomas. Además: aspirina 300 mg masticada + clopidogrel/ticagrelor + heparina + O2 solo si SatO2 <90% + morfina si dolor persiste + estatina alta dosis. Contraindicaciones de trombolisis: sangrado activo, ACV hemorrágico previo, cirugía mayor <3 semanas."
+  },
+  {
+    "id": 45,
+    "tema": "Diabetes Mellitus tipo 2 - Diagnóstico y Tratamiento",
+    "pregunta": "Paciente de 50 años, obeso (IMC 33), con poliuria, polidipsia y pérdida de peso. Glucosa en ayunas: 245 mg/dL. HbA1c: 9.2%. Creatinina normal, sin cetoacidosis. ¿Cuál es la conducta terapéutica MÁS adecuada como tratamiento inicial?",
+    "alternativas": [
+      "A) Solo cambios en el estilo de vida (dieta y ejercicio) por 3 meses antes de medicar",
+      "B) Metformina en monoterapia e ir ajustando gradualmente",
+      "C) Terapia combinada desde el inicio: metformina + segundo agente (iSGLT2, GLP-1 RA o insulina basal) dado que HbA1c >9%",
+      "D) Insulina intensiva exclusiva (sin antidiabéticos orales) de por vida"
+    ],
+    "respuesta": "C",
+    "explicacion": "Criterios diagnósticos de DM2: glucosa ayunas ≥126 mg/dL, HbA1c ≥6.5%, glucosa random ≥200 + síntomas, PTOG ≥200 (2h). Con HbA1c >9% y síntomas: se recomienda terapia COMBINADA desde el inicio (ADA/ALAD). Metformina sigue siendo la base (reduce resistencia a insulina, bajo costo, no causa hipoglucemia). Segundo agente según comorbilidades: iSGLT2 (empagliflozina, dapagliflozina) si ICC o ERC; GLP-1 RA (semaglutida, liraglutida) si enfermedad aterosclerótica u obesidad. Si HbA1c >10% o síntomas catabólicos severos: considerar insulina basal temporal. Meta general: HbA1c <7%."
+  },
+  {
+    "id": 46,
+    "tema": "Hipertiroidismo - Enfermedad de Graves",
+    "pregunta": "Paciente de 32 años presenta pérdida de peso de 8 kg pese a hiperfagia, palpitaciones, temblor fino distal, intolerancia al calor, hiperdefecación y exoftalmos bilateral. Examen: bocio difuso, soplo tiroideo. Labs: TSH <0.01 mUI/L, T4 libre 5.8 ng/dL (VN 0.8-1.8), anticuerpos anti-receptor de TSH (TRAb) positivos. ¿Cuál es el tratamiento farmacológico inicial?",
+    "alternativas": [
+      "A) Levotiroxina a dosis bajas para regularizar la TSH",
+      "B) Metimazol (o propiltiouracilo si primer trimestre de embarazo) + betabloqueador para síntomas adrenérgicos",
+      "C) Cirugía tiroidea (tiroidectomía total) como primera opción en todos los casos",
+      "D) Solo yodo radiactivo sin medicación previa"
+    ],
+    "respuesta": "B",
+    "explicacion": "TSH suprimida + T4 libre elevada + TRAb positivos + bocio difuso + oftalmopatía = Enfermedad de Graves (causa #1 de hipertiroidismo en jóvenes). Tratamiento inicial: antitiroideos de síntesis (ATS): metimazol es primera línea (excepto 1er trimestre de embarazo → PTU por menor teratogenicidad). Dosis: metimazol 15-30 mg/día, luego titular. Betabloqueador (propranolol) para control rápido de síntomas adrenérgicos (taquicardia, temblor). Si no responde a ATS o recidiva: yodo radiactivo (I-131) o tiroidectomía. En crisis tirotóxica (tormenta tiroidea): PTU + lugol + betabloqueador + corticoides + medidas de soporte."
+  },
+  {
+    "id": 47,
+    "tema": "Síndrome de Cushing",
+    "pregunta": "Paciente de 38 años presenta obesidad central progresiva, cara de luna llena, estrías violáceas anchas (>1 cm) en abdomen, hirsutismo, HTA de difícil control, DM2 de reciente diagnóstico y osteoporosis precoz. ¿Cuál es el PRIMER paso diagnóstico para confirmar hipercortisolismo?",
+    "alternativas": [
+      "A) RMN de hipófisis para buscar adenoma productor de ACTH",
+      "B) Cortisol libre en orina de 24 horas (o test de supresión con dexametasona 1 mg nocturno o cortisol salival nocturno)",
+      "C) Cateterismo de senos petrosos para localizar la fuente",
+      "D) TAC de suprarrenales directamente"
+    ],
+    "respuesta": "B",
+    "explicacion": "Ante sospecha clínica de Cushing, el PRIMER paso es CONFIRMAR el hipercortisolismo con pruebas de screening (al menos 2 positivas): (1) Cortisol libre en orina de 24h (elevado), (2) Test de supresión con dexametasona 1 mg nocturno (cortisol AM >1.8 µg/dL = no suprime = positivo), (3) Cortisol salival nocturno (pérdida del ritmo circadiano). DESPUÉS de confirmar hipercortisolismo, se mide ACTH: si ACTH alta → causa central (adenoma hipofisario = enfermedad de Cushing 70%, o ectópico). Si ACTH baja → causa suprarrenal (adenoma/carcinoma suprarrenal). La RMN y el cateterismo son pasos POSTERIORES de localización."
+  },
+  {
+    "id": 48,
+    "tema": "Enfermedad de Addison - Insuficiencia Suprarrenal Primaria",
+    "pregunta": "Paciente de 35 años presenta fatiga crónica progresiva, hipotensión ortostática (PA 85/55 mmHg), hiperpigmentación de piel y mucosas (pliegues palmares, encías), pérdida de peso, náuseas y deseo intenso de sal. Labs: Na 128 mEq/L, K 5.8 mEq/L, cortisol AM 2.1 µg/dL (VN 6-23), ACTH 450 pg/mL (VN 10-60). ¿Cuál es el diagnóstico y tratamiento?",
+    "alternativas": [
+      "A) Insuficiencia suprarrenal secundaria: hidrocortisona oral sin necesidad de fludrocortisona",
+      "B) Enfermedad de Addison: hidrocortisona oral (15-25 mg/día fraccionado) + fludrocortisona (reemplazo mineralocorticoide)",
+      "C) Síndrome de Cushing: adrenalectomía bilateral urgente",
+      "D) Feocromocitoma: alfa-bloqueo previo a cirugía"
+    ],
+    "respuesta": "B",
+    "explicacion": "Cortisol bajo + ACTH MUY elevada = insuficiencia suprarrenal PRIMARIA (Addison). La ACTH elevada produce hiperpigmentación (ACTH deriva de POMC que también genera MSH). Tríada clásica: hiperpigmentación + hipotensión + hiperkalemia/hiponatremia. Causa más frecuente: autoinmune (adrenalitis, anticuerpos anti-21-hidroxilasa); en países en desarrollo: tuberculosis suprarrenal. Tratamiento: (1) Hidrocortisona 15-25 mg/día VO fraccionada (2/3 AM + 1/3 PM, simulando ritmo circadiano), (2) Fludrocortisona 0.05-0.2 mg/día (reemplazo mineralocorticoide, esencial en la primaria). En crisis addisoniana (shock): hidrocortisona 100 mg IV bolo + SSN IV agresiva."
   }
 ]

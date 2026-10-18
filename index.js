@@ -1,3 +1,6 @@
+// Zona horaria de Perú: el servidor corre en UTC y los horarios de config.js son hora local de Piura
+process.env.TZ = 'America/Lima';
+
 const path = require('path');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
@@ -18,6 +21,7 @@ const {
 const {
   getNextQuestion,
   sentQuizToday,
+  getQuizSentTodayCount,
   saveQuizHistory,
   loadQuizHistory,
   getNextQuizTime,
@@ -166,10 +170,11 @@ function scheduleNextQuiz() {
   const questions = require('./quiz').loadQuestions();
   const history = require('./quiz').loadQuizHistory();
   const pending = questions.length - history.sent.length;
+  const questionsPerDay = config.quiz.questionsPerDay || 1;
 
-  console.log(`\n📚 [Quiz] Próxima pregunta médica programada para:`);
+  console.log(`\n📚 [Quiz] Próxima sesión de estudio programada para:`);
   console.log(`   👉 Fecha: ${nextQuizRun.toLocaleDateString()} a las ${formatTime(nextQuizRun)}`);
-  console.log(`   📋 Preguntas pendientes en el banco: ${pending >= 0 ? pending : questions.length}\n`);
+  console.log(`   📋 Preguntas por sesión: ${questionsPerDay} | Pendientes en banco: ${pending >= 0 ? pending : questions.length}\n`);
 }
 
 
@@ -291,26 +296,29 @@ async function executeDailyBatch() {
 }
 
 /**
- * Ejecuta el envío de la pregunta diaria del quiz médico.
- * Primero envía la pregunta, espera 7 minutos y luego envía la respuesta.
+ * Ejecuta la sesión de estudio diaria del quiz médico.
+ * Envía un lote de preguntas (config.quiz.questionsPerDay), cada una con su
+ * pregunta → espera 7 min → respuesta → pausa 2 min → siguiente pregunta.
  */
 async function executeQuiz() {
   if (isSendingQuiz) return;
   isSendingQuiz = true;
 
   try {
-    const question = getNextQuestion();
-    if (!question) {
-      console.log('⚠️ [Quiz] No hay preguntas en preguntas.json. Agrega preguntas y reinicia.');
+    const questionsPerDay = config.quiz.questionsPerDay || 1;
+    const todaySent = getQuizSentTodayCount();
+    const remaining = questionsPerDay - todaySent;
+
+    if (remaining <= 0) {
+      console.log(`📚 [Quiz] Cuota diaria completada (${todaySent}/${questionsPerDay}).`);
       scheduleNextQuiz();
       isSendingQuiz = false;
       return;
     }
 
     const chatId = `${config.quiz.targetNumber}@c.us`;
-    console.log(`\n📚 [Quiz] (${formatTime(new Date())}) Enviando pregunta: "${question.tema}"`);
 
-    // 1. Verificar que el número existe en WhatsApp
+    // Verificar que el número existe en WhatsApp
     const isRegistered = await client.isRegisteredUser(chatId);
     if (!isRegistered) {
       console.error(`❌ [Quiz] El número ${config.quiz.targetNumber} no está registrado en WhatsApp.`);
@@ -319,28 +327,49 @@ async function executeQuiz() {
       return;
     }
 
-    // 2. Enviar la pregunta
-    await client.sendMessage(chatId, formatQuestionMessage(question));
-    console.log(`✅ [Quiz] Pregunta enviada. Esperando ${config.quiz.answerDelayMs / 60000} minutos para enviar respuesta...`);
+    console.log(`\n📚 [Quiz] (${formatTime(new Date())}) Iniciando sesión de estudio: ${remaining} preguntas por enviar\n`);
 
-    // 3. Esperar el tiempo configurado (7 minutos)
-    await sleep(config.quiz.answerDelayMs);
+    for (let i = 0; i < remaining; i++) {
+      const question = getNextQuestion();
+      if (!question) {
+        console.log('⚠️ [Quiz] No hay más preguntas disponibles.');
+        break;
+      }
 
-    // 4. Enviar la respuesta
-    await client.sendMessage(chatId, formatAnswerMessage(question));
-    console.log(`✅ [Quiz] Respuesta enviada para: "${question.tema}"`);
+      console.log(`📚 [Quiz] [${todaySent + i + 1}/${questionsPerDay}] Enviando: "${question.tema}"`);
 
-    // 5. Guardar en historial
-    const history = loadQuizHistory();
-    history.sent.push({
-      id: question.id,
-      tema: question.tema,
-      date: new Date().toISOString(),
-      respuesta: question.respuesta
-    });
-    saveQuizHistory(history);
+      // 1. Enviar la pregunta
+      await client.sendMessage(chatId, formatQuestionMessage(question));
+      console.log(`✅ [Quiz] Pregunta enviada. Esperando ${config.quiz.answerDelayMs / 60000} minutos para enviar respuesta...`);
 
-    // 6. Programar la siguiente pregunta
+      // 2. Esperar el tiempo configurado (7 minutos)
+      await sleep(config.quiz.answerDelayMs);
+
+      // 3. Enviar la respuesta
+      await client.sendMessage(chatId, formatAnswerMessage(question));
+      console.log(`✅ [Quiz] Respuesta enviada para: "${question.tema}"`);
+
+      // 4. Guardar en historial
+      const history = loadQuizHistory();
+      history.sent.push({
+        id: question.id,
+        tema: question.tema,
+        date: new Date().toISOString(),
+        respuesta: question.respuesta
+      });
+      saveQuizHistory(history);
+
+      // 5. Pausa entre preguntas (no después de la última)
+      if (i < remaining - 1) {
+        const delayMs = config.quiz.delayBetweenQuestionsMs || 120000;
+        console.log(`⏳ [Quiz] Pausa de ${delayMs / 60000} minutos antes de la siguiente pregunta...`);
+        await sleep(delayMs);
+      }
+    }
+
+    console.log(`\n🎉 [Quiz] Sesión de estudio completada.`);
+
+    // 6. Programar la siguiente sesión
     scheduleNextQuiz();
 
   } catch (err) {

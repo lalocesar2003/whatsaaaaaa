@@ -66,6 +66,9 @@ module.exports = {
     // Número de tu novia (destinataria de las preguntas)
     targetNumber: '51932888285',
 
+    // Cantidad de preguntas por día (sesión de estudio)
+    questionsPerDay: 5,
+
     // Ventana horaria aleatoria para el envío de la pregunta diaria
     timeWindow: {
       startHour: 9,    // Desde las 09:00 AM
@@ -77,6 +80,10 @@ module.exports = {
     // Tiempo de espera entre la pregunta y la respuesta (en ms)
     // 420000 ms = 7 minutos exactos
     answerDelayMs: 420000,
+
+    // Pausa entre una respuesta y la siguiente pregunta (en ms)
+    // 120000 ms = 2 minutos
+    delayBetweenQuestionsMs: 120000,
 
     // Rutas de archivos del quiz
     questionsFile: path.join(__dirname, 'preguntas.json'),

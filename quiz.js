@@ -1,6 +1,6 @@
 const fs = require('fs');
 const config = require('./config');
-const { getRandomInt, getNextScheduledTime, formatTime } = require('./utils');
+const { getRandomInt, getNextScheduledTime, formatTime, getLocalDateString } = require('./utils');
 
 /**
  * Carga las preguntas desde preguntas.json
@@ -60,12 +60,20 @@ function getNextQuestion() {
 }
 
 /**
- * Verifica si ya se envió una pregunta hoy
+ * Cuenta cuántas preguntas se enviaron hoy
+ */
+function getQuizSentTodayCount() {
+  const history = loadQuizHistory();
+  const today = getLocalDateString();
+  return history.sent.filter(e => e.date && getLocalDateString(new Date(e.date)) === today).length;
+}
+
+/**
+ * Verifica si ya se completó la cuota diaria del quiz
  */
 function sentQuizToday() {
-  const history = loadQuizHistory();
-  const today = new Date().toISOString().slice(0, 10);
-  return history.sent.some(e => e.date && e.date.startsWith(today));
+  const questionsPerDay = config.quiz.questionsPerDay || 1;
+  return getQuizSentTodayCount() >= questionsPerDay;
 }
 
 /**
@@ -105,6 +113,7 @@ module.exports = {
   saveQuizHistory,
   getNextQuestion,
   sentQuizToday,
+  getQuizSentTodayCount,
   getNextQuizTime,
   formatQuestionMessage,
   formatAnswerMessage
