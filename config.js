@@ -1,5 +1,14 @@
 const path = require('path');
 
+// Datos privados (teléfonos) en config.local.js, ignorado por git.
+// Copia config.local.example.js como config.local.js y complétalo.
+let local = {};
+try {
+  local = require('./config.local');
+} catch (e) {
+  console.warn('⚠️ [Config] No existe config.local.js: el quiz y el aviso de citas no tendrán destinatario.');
+}
+
 module.exports = {
   // Límite diario de mensajes
   dailyLimit: 5,
@@ -63,8 +72,8 @@ module.exports = {
   // MÓDULO QUIZ MÉDICO — Preguntas diarias para estudio
   // ================================================================
   quiz: {
-    // Número de tu novia (destinataria de las preguntas)
-    targetNumber: '51932888285',
+    // Número destinatario de las preguntas (definido en config.local.js)
+    targetNumber: process.env.QUIZ_TARGET_NUMBER || local.quizTargetNumber || '',
 
     // Cantidad de preguntas por día (sesión de estudio)
     questionsPerDay: 5,
@@ -101,7 +110,7 @@ module.exports = {
     model: 'gpt-4o-mini',
 
     // Número personal de César (para recibir notificaciones de citas agendadas)
-    cesarNumber: '51955996535',
+    cesarNumber: process.env.CESAR_NUMBER || local.cesarNumber || '',
 
     // Máximo de respuestas automáticas por prospecto (evita loops infinitos)
     maxRepliesPerContact: 10,

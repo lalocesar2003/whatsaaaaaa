@@ -277,7 +277,7 @@ async function handleIncomingMessage(client, msg) {
     return;
   }
 
-  // No responder al número del quiz (tu novia) ni a tu número personal
+  // No responder al número del quiz ni a tu número personal
   if (number === config.quiz.targetNumber) return;
   if (number === config.responder.cesarNumber) return;
 

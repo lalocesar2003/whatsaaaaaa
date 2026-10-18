@@ -7,3 +7,4 @@ conversaciones/
 *.log
 .env
 parse-csv.js
+config.local.js

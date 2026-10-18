@@ -8,7 +8,13 @@ Bot en **Node.js** con **whatsapp-web.js** que corre 24/7 en un servidor Ubuntu 
 | **Quiz médico** | Sesión diaria de 5 preguntas clínicas con respuesta a los 7 min | `quiz.js`, `preguntas.json`, `quiz-historial.json` |
 | **Auto-responder** | Contesta con ChatGPT a los prospectos que responden | `responder.js`, `conversaciones/` |
 
-Toda la configuración está en `config.js`.
+Toda la configuración está en `config.js`. Los datos privados (teléfonos) van en `config.local.js`, que **no se sube a GitHub**:
+
+```bash
+cp config.local.example.js config.local.js   # y completa los números
+```
+
+También se pueden pasar como variables de entorno: `QUIZ_TARGET_NUMBER` y `CESAR_NUMBER`.
 
 ---
 
@@ -31,7 +37,7 @@ El servidor corre en **UTC**, pero `index.js` fija `process.env.TZ = 'America/Li
 
 ## 📚 Módulo 2: Quiz médico
 
-- **Destino:** `config.quiz.targetNumber`.
+- **Destino:** `quizTargetNumber` en `config.local.js`.
 - **Preguntas por día:** 5 (`questionsPerDay`).
 - **Dinámica de cada pregunta:** se envía la pregunta, a los **7 min** la respuesta con su explicación (`answerDelayMs`), y **1 hora** después la siguiente pregunta (`delayBetweenQuestionsMs`).
 - **Duración de la sesión:** unas 4 h 35 min.
@@ -81,6 +87,8 @@ Los `id` deben ser únicos y nuevos, porque el historial se lleva por `id`.
 whatsapp-bot/
 ├── index.js              # Orquestador: WhatsApp, heartbeat cada 30 s, prospección y quiz
 ├── config.js             # ⚙️ Configuración de los 3 módulos
+├── config.local.js       # 🔒 Teléfonos privados              (ignorado por git)
+├── config.local.example.js # Plantilla de config.local.js
 ├── utils.js              # Números, horarios aleatorios, Spintax, historial
 ├── quiz.js               # Lógica del quiz (rotación, conteo diario, ventana de inicio)
 ├── responder.js          # Auto-responder con ChatGPT
