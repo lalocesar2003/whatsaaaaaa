@@ -82,8 +82,8 @@ module.exports = {
     answerDelayMs: 420000,
 
     // Pausa entre una respuesta y la siguiente pregunta (en ms)
-    // 120000 ms = 2 minutos
-    delayBetweenQuestionsMs: 120000,
+    // 3600000 ms = 1 hora
+    delayBetweenQuestionsMs: 3600000,
 
     // Rutas de archivos del quiz
     questionsFile: path.join(__dirname, 'preguntas.json'),

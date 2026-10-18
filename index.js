@@ -158,13 +158,14 @@ function scheduleNextQuiz() {
     // Ya se envió hoy: programar para mañana
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const startMinutes = config.quiz.timeWindow.startHour * 60 + config.quiz.timeWindow.startMinute;
-    const endMinutes = config.quiz.timeWindow.endHour * 60 + config.quiz.timeWindow.endMinute;
+    const startWindow = require('./quiz').getQuizStartWindow();
+    const startMinutes = startWindow.startHour * 60 + startWindow.startMinute;
+    const endMinutes = startWindow.endHour * 60 + startWindow.endMinute;
     const chosenMinute = getRandomInt(startMinutes, endMinutes);
     tomorrow.setHours(Math.floor(chosenMinute / 60), chosenMinute % 60, getRandomInt(0, 59), 0);
     nextQuizRun = tomorrow;
   } else {
-    nextQuizRun = getNextQuizTime(config.quiz.timeWindow);
+    nextQuizRun = getNextQuizTime();
   }
 
   const questions = require('./quiz').loadQuestions();

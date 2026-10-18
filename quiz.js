@@ -80,7 +80,27 @@ function sentQuizToday() {
  * Calcula el próximo horario aleatorio para el quiz
  */
 function getNextQuizTime() {
-  return getNextScheduledTime(config.quiz.timeWindow);
+  return getNextScheduledTime(getQuizStartWindow());
+}
+
+/**
+ * Ventana para INICIAR la sesión: la hora final se adelanta lo que dura
+ * la sesión, para que la última pregunta salga antes del fin de la ventana.
+ */
+function getQuizStartWindow(questionsToSend) {
+  const w = config.quiz.timeWindow;
+  const count = questionsToSend || config.quiz.questionsPerDay || 1;
+  const sessionMinutes = Math.ceil(
+    (count * config.quiz.answerDelayMs + (count - 1) * (config.quiz.delayBetweenQuestionsMs || 0)) / 60000
+  );
+  const startMinutes = w.startHour * 60 + w.startMinute;
+  const endMinutes = Math.max(startMinutes, w.endHour * 60 + w.endMinute - sessionMinutes);
+  return {
+    startHour: w.startHour,
+    startMinute: w.startMinute,
+    endHour: Math.floor(endMinutes / 60),
+    endMinute: endMinutes % 60
+  };
 }
 
 /**
@@ -115,6 +135,7 @@ module.exports = {
   sentQuizToday,
   getQuizSentTodayCount,
   getNextQuizTime,
+  getQuizStartWindow,
   formatQuestionMessage,
   formatAnswerMessage
 };
