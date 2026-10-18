@@ -98,7 +98,7 @@ whatsapp-bot/
 
 ## 🖥️ Servidor y despliegue
 
-- **Acceso:** PC → Cloudflare Tunnel (`term.pruebapiura.store`) → VPS → SSH a la i5 (`192.168.18.7`).
+- **Acceso:** PC → Cloudflare Tunnel → VPS → SSH a la i5 por red local (datos de acceso fuera del repositorio).
 - **Carpeta activa:** `/home/cesar/whatsapp-bot-git`. Hay un respaldo antiguo en `~/whatsapp-bot`.
 - **Proceso:** PM2, con el nombre `whatsapp-bot`.
 
