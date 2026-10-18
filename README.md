@@ -1,150 +1,152 @@
-# 🤖 WhatsApp Prospecting Bot — César
+# 🤖 WhatsApp Bot 24/7 — César
 
-Bot de prospección automática para WhatsApp desarrollado en **Node.js** con **whatsapp-web.js**. Envía mensajes diarios a prospectos obtenidos de Google Maps, con sistema de aleatoriedad avanzado para evitar detección y bloqueos.
+Bot en **Node.js** con **whatsapp-web.js** que corre 24/7 en un servidor Ubuntu (laptop i5) con una única sesión de WhatsApp vinculada. Un solo proceso (`index.js`) ejecuta tres módulos:
 
----
+| Módulo | Qué hace | Archivos |
+|---|---|---|
+| **Prospección** | Envía la propuesta de página web a 5 negocios nuevos por día | `index.js`, `utils.js`, `numeros.txt`, `historial.json` |
+| **Quiz médico** | Sesión diaria de 5 preguntas clínicas con respuesta a los 7 min | `quiz.js`, `preguntas.json`, `quiz-historial.json` |
+| **Auto-responder** | Contesta con ChatGPT a los prospectos que responden | `responder.js`, `conversaciones/` |
 
-## ✨ Características
-
-- 📅 **5 mensajes diarios** con control estricto de cuota
-- 🎲 **Horario aleatorio** cada día (ventana configurable, ej. 08:30–12:30 AM)
-- ⏳ **Pausas humanas** de 2–7 minutos entre cada mensaje
-- 📝 **Variaciones de texto** dinámicas (más de 100 combinaciones únicas del mismo mensaje)
-- 🔐 **Sesión permanente** — escanea el QR solo la primera vez
-- 🔄 **Reconexión automática** si se cae el internet
-- 📊 **Historial completo** en `historial.json` con estado de cada envío
-- 🖥️ **Modo 24/7** usando PM2 en Ubuntu Server
+Toda la configuración está en `config.js`.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🕐 Zona horaria
+
+El servidor corre en **UTC**, pero `index.js` fija `process.env.TZ = 'America/Lima'` al inicio. **Todos los horarios de `config.js` son hora de Perú**, y los logs muestran hora de Perú.
+
+---
+
+## 📣 Módulo 1: Prospección
+
+- **Cuota:** 5 mensajes por día (`dailyLimit`).
+- **Ventana:** de 08:00 a 19:00 (`timeWindow`). Cada día se sortea una hora distinta.
+- **Pausa entre prospectos:** de 2 a 7 min aleatorios (`delayBetweenMessages`).
+- **Texto variable:** 5 saludos × 3 presentaciones × 3 contextos × 3 propuestas = 135 combinaciones (`messageVariations`).
+- **Verificación previa:** con `isRegisteredUser` se omiten los números sin WhatsApp, como los fijos que empiezan con `5173…`.
+- **Agregar números:** en `numeros.txt`, separados por comas o saltos de línea. El bot elimina duplicados y agrega el `51` a los celulares de 9 dígitos.
+
+---
+
+## 📚 Módulo 2: Quiz médico
+
+- **Destino:** `config.quiz.targetNumber`.
+- **Preguntas por día:** 5 (`questionsPerDay`).
+- **Dinámica de cada pregunta:** se envía la pregunta, a los **7 min** la respuesta con su explicación (`answerDelayMs`), y **1 hora** después la siguiente pregunta (`delayBetweenQuestionsMs`).
+- **Duración de la sesión:** unas 4 h 35 min.
+- **Ventana:** de 09:00 a 23:00 (`timeWindow`). La hora de **inicio** se sortea entre las 09:00 y la hora que permite terminar antes de las 23:00 (hoy, 18:25). Ver `getQuizStartWindow()` en `quiz.js`.
+- **Reinicios:** si el bot se reinicia a mitad de la sesión, retoma las preguntas que falten del día. El conteo usa la fecha de Perú.
+- **Rotación:** cuando se envían todas las preguntas del banco, el ciclo vuelve a empezar.
+
+### Banco de preguntas (`preguntas.json`), 48 preguntas
+
+- **1–28:** cardiología, gastroenterología y neurología.
+- **29–48:** infecciosas (MRSA, tifoidea, dengue, malaria, VIH, ofidismo), respiratorio (insuficiencia respiratoria, NAC, TBC, EPOC, asma, derrame pleural), cardiovascular (FA, insuficiencia cardiaca, crisis hipertensiva, IAMCEST) y endocrino (DM2, Graves, Cushing, Addison).
+
+Formato de cada pregunta:
+
+```json
+{
+  "id": 49,
+  "tema": "...",
+  "pregunta": "...",
+  "alternativas": ["A) ...", "B) ...", "C) ...", "D) ..."],
+  "respuesta": "B",
+  "explicacion": "..."
+}
+```
+
+Los `id` deben ser únicos y nuevos, porque el historial se lleva por `id`.
+
+---
+
+## 💬 Módulo 3: Auto-responder (ChatGPT)
+
+- **Modelo:** `gpt-4o-mini`. La clave se lee de la variable de entorno `OPENAI_API_KEY`, configurada en el proceso de PM2.
+- **A quién responde:** solo a números de `numeros.txt`. Ignora grupos, estados, mensajes propios, el número del quiz y el número personal de César.
+- **IDs `@lid`:** WhatsApp suele entregar los chats como `@lid` en vez del número. El teléfono real se obtiene con `client.getContactLidAndPhone()`. `contact.number` **no** sirve, porque devuelve los dígitos del LID.
+- **Respuesta:** espera de 1 a 3 min, agrupa los mensajes seguidos en una sola respuesta y usa como contexto el chat real de WhatsApp (que incluye el mensaje de prospección y lo que César haya escrito a mano).
+- **Límites:** 10 respuestas por prospecto. Si el prospecto dice que no le interesa, la conversación se cierra.
+- **Citas:** si se agenda una cita, el bot avisa por WhatsApp al número personal de César.
+- **Descartes:** cada mensaje descartado queda en el log con el motivo (`ℹ️ [Responder] Ignorado: ...`).
+- **Pendientes al arrancar:** `processPendingReplies()` busca prospectos que escribieron en los últimos 3 días sin recibir respuesta.
+  - ⚠️ **Pendiente de arreglar:** hoy falla al abrir los chats (`No se pudo revisar ...`), así que no recupera mensajes viejos. Las respuestas en vivo no se ven afectadas.
+
+---
+
+## 📁 Estructura
 
 ```
 whatsapp-bot/
-├── index.js          # Script principal (servicio 24/7)
-├── config.js         # ⚙️ Configuración (mensaje, horarios, límites)
-├── utils.js          # Funciones auxiliares (aleatoriedad, historial)
-├── numeros.txt       # 📋 Lista de números a prospectar
-├── historial.json    # 📊 Registro automático (se genera solo)
-├── .wwebjs_auth/     # 🔐 Sesión guardada de WhatsApp (ignorada por git)
-└── test-randomness.js # Pruebas de aleatoriedad
+├── index.js              # Orquestador: WhatsApp, heartbeat cada 30 s, prospección y quiz
+├── config.js             # ⚙️ Configuración de los 3 módulos
+├── utils.js              # Números, horarios aleatorios, Spintax, historial
+├── quiz.js               # Lógica del quiz (rotación, conteo diario, ventana de inicio)
+├── responder.js          # Auto-responder con ChatGPT
+├── preguntas.json        # Banco de preguntas médicas
+├── numeros.txt           # Prospectos
+├── historial.json        # Envíos de prospección          (ignorado por git)
+├── quiz-historial.json   # Preguntas enviadas             (ignorado por git)
+├── conversaciones/       # Conversaciones por prospecto   (ignorado por git)
+├── .wwebjs_auth/         # Sesión de WhatsApp             (ignorado por git)
+├── UBUNTU_SERVER_SETUP.md
+└── test-logic.js, test-randomness.js
 ```
 
 ---
 
-## 🚀 Instalación
+## 🖥️ Servidor y despliegue
 
-### Requisitos
-- Node.js v20 o superior
-- npm
+- **Acceso:** PC → Cloudflare Tunnel (`term.pruebapiura.store`) → VPS → SSH a la i5 (`192.168.18.7`).
+- **Carpeta activa:** `/home/cesar/whatsapp-bot-git`. Hay un respaldo antiguo en `~/whatsapp-bot`.
+- **Proceso:** PM2, con el nombre `whatsapp-bot`.
 
-### Pasos
+Para desplegar un cambio, primero súbelo desde la PC:
 
 ```bash
-git clone https://github.com/TU_USUARIO/whatsapp-bot.git
-cd whatsapp-bot
-npm install
+git add . && git commit -m "..." && git push
 ```
 
----
-
-## ⚙️ Configuración (`config.js`)
-
-Abre `config.js` para personalizar:
-
-| Parámetro | Descripción | Valor por defecto |
-|---|---|---|
-| `dailyLimit` | Mensajes por día | `5` |
-| `timeWindow` | Ventana horaria de envío | `08:30 – 12:30` |
-| `delayBetweenMessages` | Pausa entre mensajes | `2 – 7 min` |
-| `defaultCountryCode` | Código de país | `51` (Perú) |
-| `messageVariations` | Banco de variaciones del mensaje | Ver archivo |
-
----
-
-## 📋 Agregar Números (`numeros.txt`)
-
-Edita `numeros.txt` con los números separados por comas o saltos de línea:
-
-```
-51970842718,51952837829,51984712079
-51941303365,51944921273
-```
-
-- El bot **elimina duplicados** automáticamente.
-- Acepta números con o sin código de país.
-- Los números de **teléfono fijo** (sin WhatsApp) son detectados y omitidos automáticamente.
-
----
-
-## ▶️ Ejecución
-
-### Primera vez (escanear QR):
-```bash
-node index.js
-```
-Escanea el código QR desde **WhatsApp → Dispositivos vinculados → Vincular dispositivo**. Solo necesitas hacer esto una vez.
-
-### Modo 24/7 con PM2:
-```bash
-pm2 start index.js --name "whatsapp-bot"
-pm2 startup   # Arranque automático al reiniciar el servidor
-pm2 save
-```
-
----
-
-## 📊 Monitoreo
+Después, en la i5, actualiza y reinicia:
 
 ```bash
-# Ver estado del proceso
+git -C ~/whatsapp-bot-git pull && pm2 restart whatsapp-bot --update-env
+```
+
+Antes de reiniciar, revisa los logs: el reinicio corta cualquier ronda de prospección o sesión de quiz que esté en curso.
+
+### Monitoreo
+
+```bash
 pm2 status
-
-# Ver logs en tiempo real
-pm2 logs whatsapp-bot
-
-# Ver últimos 50 logs sin quedarse en modo vivo
-pm2 logs whatsapp-bot --lines 50 --nostream
+pm2 logs whatsapp-bot --lines 100 --nostream
+pm2 logs whatsapp-bot --lines 300 --nostream | grep Responder
+pm2 logs whatsapp-bot --lines 300 --nostream | grep Quiz
 ```
 
----
-
-## 🔧 Hotfix / Actualizar el servidor
-
-Desde tu PC, haz tus cambios y sube a GitHub:
-
-```bash
-git add .
-git commit -m "fix: descripción del cambio"
-git push
-```
-
-En el servidor Ubuntu:
-
-```bash
-cd ~/whatsapp-bot && git pull && pm2 restart whatsapp-bot
-```
+Para la instalación desde cero, ver [`UBUNTU_SERVER_SETUP.md`](./UBUNTU_SERVER_SETUP.md).
 
 ---
 
-## 🖥️ Instalación en Ubuntu Server 24/7
+## 🛡️ Anti-bloqueo
 
-Ver guía completa en [`UBUNTU_SERVER_SETUP.md`](./UBUNTU_SERVER_SETUP.md).
-
----
-
-## 🛡️ Consideraciones Anti-Bloqueo
-
-Este bot implementa múltiples capas de protección:
-
-1. **Límite de 5 mensajes/día** — muy por debajo del umbral de detección de WhatsApp.
-2. **Horario aleatorio** — nunca envía a la misma hora exacta dos días seguidos.
-3. **Pausas de 2–7 minutos** — simula el comportamiento humano entre envíos.
-4. **Texto variado** — más de 100 combinaciones diferentes del mismo mensaje para evitar el "hash matching" de WhatsApp.
-5. **Verificación previa** — solo envía a números con cuenta activa en WhatsApp (`isRegisteredUser`).
+1. Máximo 5 prospectos por día.
+2. Hora de envío distinta cada día.
+3. Pausas de 2 a 7 min entre prospectos y de 1 a 3 min antes de cada respuesta.
+4. 135 variaciones del mensaje inicial.
+5. Verificación de cuenta activa antes de enviar.
 
 ---
 
-## 📝 Licencia
+## 📝 Historial de cambios recientes
 
-Uso personal — Proyecto universitario de César, Ingeniería de Sistemas.
+| Commit | Cambio |
+|---|---|
+| `a9e35dc` | Quiz: 1 hora entre preguntas; la sesión termina antes de las 23:00 |
+| `9277896` | Quiz de 5 preguntas por día, 20 preguntas nuevas (48 en total), zona horaria de Perú |
+| `a03c9f8`, `30d78ba`, `d7c5247` | Auto-responder: teléfono real de los chats `@lid`, agrupación de mensajes, logs de descarte |
+
+---
+
+Uso personal: proyecto universitario de César, Ingeniería de Sistemas.
