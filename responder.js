@@ -104,6 +104,29 @@ const lidToPhone = new Map();
 const pendingByNumber = new Map(); // number -> { chatId, texts: [] }
 const processingNumbers = new Set();
 
+// Textos que el propio bot está enviando: sirven para distinguir los mensajes
+// del bot de los que César escribe a mano desde su celular
+const botSentTexts = new Map(); // texto -> cantidad pendiente de confirmar
+
+function markBotMessage(text) {
+  const key = String(text || '').trim();
+  botSentTexts.set(key, (botSentTexts.get(key) || 0) + 1);
+}
+
+function consumeBotMessage(text) {
+  const key = String(text || '').trim();
+  const count = botSentTexts.get(key) || 0;
+  if (count === 0) return false;
+  if (count === 1) botSentTexts.delete(key);
+  else botSentTexts.set(key, count - 1);
+  return true;
+}
+
+async function sendAsBot(client, chatId, text) {
+  markBotMessage(text);
+  return client.sendMessage(chatId, text);
+}
+
 function cleanDigits(value) {
   return String(value || '').replace(/@.*$/, '').replace(/\D/g, '');
 }
@@ -129,17 +152,22 @@ async function lookupLidAndPhone(client, ids) {
  * así que se usa getContactLidAndPhone y el mapa LID -> teléfono.
  */
 async function resolveSenderNumber(client, msg) {
-  if (msg.from.endsWith('@c.us')) return msg.from.replace('@c.us', '');
-  if (!msg.from.endsWith('@lid')) return null;
+  return resolveNumber(client, msg.from);
+}
 
-  const [entry] = await lookupLidAndPhone(client, [msg.from]);
+async function resolveNumber(client, id) {
+  if (!id) return null;
+  if (id.endsWith('@c.us')) return id.replace('@c.us', '');
+  if (!id.endsWith('@lid')) return null;
+
+  const [entry] = await lookupLidAndPhone(client, [id]);
   const pn = entry && cleanDigits(entry.pn);
   if (pn) {
-    lidToPhone.set(msg.from, pn);
+    lidToPhone.set(id, pn);
     return pn;
   }
 
-  if (lidToPhone.has(msg.from)) return lidToPhone.get(msg.from);
+  if (lidToPhone.has(id)) return lidToPhone.get(id);
 
   return null;
 }
@@ -201,8 +229,14 @@ async function processQueue(client, number) {
         continue;
       }
 
+      // Si César escribió a mano mientras se generaba la respuesta, no enviar
+      if (loadConversation(number).closed) {
+        console.log(`✋ [Responder] +${number} ya está en manos de César. Respuesta descartada.`);
+        return;
+      }
+
       // --- ENVIAR RESPUESTA ---
-      await client.sendMessage(chatId, result.mensaje);
+      await sendAsBot(client, chatId, result.mensaje);
       console.log(`✅ [Responder] Respondido a +${number}: "${result.mensaje}"`);
 
       // --- GUARDAR HISTORIAL ---
@@ -212,13 +246,24 @@ async function processQueue(client, number) {
 
       if (result.conversacionCerrada) {
         conversation.closed = true;
+        conversation.closedReason = 'no_interesado';
         console.log(`🔒 [Responder] Conversación con +${number} marcada como cerrada.`);
       }
 
-      saveConversation(number, conversation);
-
-      // --- NOTIFICAR A CÉSAR SI SE AGENDÓ UNA CITA ---
+      // Con la cita agendada el bot termina su trabajo: César sigue a mano
+      const newCita = result.citaAgendada && !conversation.cita;
       if (result.citaAgendada) {
+        conversation.closed = true;
+        conversation.closedReason = 'cita_agendada';
+        conversation.cita = conversation.cita || result.resumen;
+        console.log(`🔒 [Responder] Cita agendada con +${number}. El bot deja de responder a este contacto.`);
+      }
+
+      saveConversation(number, conversation);
+      if (conversation.closed) pendingByNumber.delete(number);
+
+      // --- NOTIFICAR A CÉSAR SI SE AGENDÓ UNA CITA (una sola vez) ---
+      if (newCita) {
         const notifChatId = `${config.responder.cesarNumber}@c.us`;
         const notifMsg =
           `🔔 *¡CITA AGENDADA!*\n\n` +
@@ -227,7 +272,7 @@ async function processQueue(client, number) {
           `⏰ Notificado: ${formatTime(new Date())}\n\n` +
           `💡 Revisa la conversación completa en los logs del servidor.`;
 
-        await client.sendMessage(notifChatId, notifMsg);
+        await sendAsBot(client, notifChatId, notifMsg);
         console.log(`🔔 [Responder] ¡César notificado! Cita agendada con +${number}: ${result.resumen}`);
       }
     }
@@ -289,6 +334,40 @@ async function handleIncomingMessage(client, msg) {
 
   console.log(`\n💬 [Responder] (${formatTime(new Date())}) Mensaje de +${number}: "${msg.body}"`);
   enqueue(client, number, msg.from, msg.body);
+}
+
+/**
+ * Mensajes salientes (message_create con fromMe). Si César escribe a mano
+ * en el chat de un prospecto, el bot deja de responder a ese contacto.
+ */
+async function handleOutgoingMessage(client, msg) {
+  if (!msg.fromMe) return;
+  if (consumeBotMessage(msg.body)) return; // lo envió el bot
+  if (!msg.to || msg.to.endsWith('@g.us') || msg.to.endsWith('@broadcast')) return;
+
+  const number = await resolveNumber(client, msg.to);
+  if (!number || !isProspectNumber(number)) return;
+
+  // El mensaje inicial de prospección también sale de este número
+  if (sentByProspecting(number, msg.body)) return;
+
+  const conversation = loadConversation(number);
+  pendingByNumber.delete(number);
+  if (conversation.closed) return;
+
+  conversation.closed = true;
+  conversation.closedReason = 'cesar_manual';
+  conversation.messages.push({ role: 'assistant', content: msg.body || '[multimedia]' });
+  saveConversation(number, conversation);
+  console.log(`✋ [Responder] César escribió a mano a +${number}. El bot deja de responder a este contacto.`);
+}
+
+function sentByProspecting(number, body) {
+  const history = loadHistory(config.historyFile);
+  return history.sent.some(h =>
+    h.number === number && h.messageSample && body &&
+    body.startsWith(h.messageSample.replace(/...$/, ''))
+  );
 }
 
 /**
@@ -356,4 +435,4 @@ async function processPendingReplies(client) {
   console.log(`🔎 [Responder] Revisión inicial completada: ${found} prospecto(s) con mensajes pendientes.`);
 }
 
-module.exports = { initResponder, handleIncomingMessage, processPendingReplies };
+module.exports = { initResponder, handleIncomingMessage, handleOutgoingMessage, processPendingReplies, markBotMessage };

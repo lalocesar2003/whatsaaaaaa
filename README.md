@@ -73,8 +73,12 @@ Los `id` deben ser únicos y nuevos, porque el historial se lleva por `id`.
 - **A quién responde:** solo a números de `numeros.txt`. Ignora grupos, estados, mensajes propios, el número del quiz y el número personal de César.
 - **IDs `@lid`:** WhatsApp suele entregar los chats como `@lid` en vez del número. El teléfono real se obtiene con `client.getContactLidAndPhone()`. `contact.number` **no** sirve, porque devuelve los dígitos del LID.
 - **Respuesta:** espera de 1 a 3 min, agrupa los mensajes seguidos en una sola respuesta y usa como contexto el chat real de WhatsApp (que incluye el mensaje de prospección y lo que César haya escrito a mano).
-- **Límites:** 10 respuestas por prospecto. Si el prospecto dice que no le interesa, la conversación se cierra.
-- **Citas:** si se agenda una cita, el bot avisa por WhatsApp al número personal de César.
+- **Límites:** 10 respuestas por prospecto.
+- **Cuándo deja de responder a un contacto** (`closed: true` en `conversaciones/<número>.json`, con el motivo en `closedReason`):
+  - `cita_agendada`: al confirmar una cita, el bot responde una última vez, avisa **una sola vez** a César y se retira. César continúa a mano.
+  - `cesar_manual`: si César escribe a mano en el chat (desde su celular), el bot no vuelve a responder a ese contacto. Lo detecta con el evento `message_create`; los mensajes del propio bot se distinguen porque se registran antes de enviarse (`markBotMessage`).
+  - `no_interesado`: el prospecto dijo que no le interesa.
+  - Para reactivar el bot con un contacto, edita su archivo y pon `"closed": false`.
 - **Descartes:** cada mensaje descartado queda en el log con el motivo (`ℹ️ [Responder] Ignorado: ...`).
 - **Pendientes al arrancar:** `processPendingReplies()` busca prospectos que escribieron en los últimos 3 días sin recibir respuesta.
   - ⚠️ **Pendiente de arreglar:** hoy falla al abrir los chats (`No se pudo revisar ...`), así que no recupera mensajes viejos. Las respuestas en vivo no se ven afectadas.

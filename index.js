@@ -28,7 +28,7 @@ const {
   formatQuestionMessage,
   formatAnswerMessage
 } = require('./quiz');
-const { initResponder, handleIncomingMessage, processPendingReplies } = require('./responder');
+const { initResponder, handleIncomingMessage, handleOutgoingMessage, processPendingReplies, markBotMessage } = require('./responder');
 
 // Estado global de la aplicación
 let clientReady = false;
@@ -124,6 +124,14 @@ client.on('ready', async () => {
 });
 
 // Listener de mensajes entrantes: auto-responder a prospectos
+// Mensajes propios (del bot o escritos a mano por César desde el celular)
+client.on('message_create', async (msg) => {
+  if (!clientReady || !msg.fromMe) return;
+  handleOutgoingMessage(client, msg).catch((err) => {
+    console.error('❌ [Responder] Error procesando mensaje propio:', err.message);
+  });
+});
+
 client.on('message', async (msg) => {
   if (!clientReady) return;
   handleIncomingMessage(client, msg);
@@ -244,6 +252,7 @@ async function executeDailyBatch() {
         console.log(`📨 Mensaje generado:\n"${messageToSend}"\n`);
 
         // 3. Enviar mensaje
+        markBotMessage(messageToSend);
         await client.sendMessage(chatId, messageToSend);
         console.log(`✨ ¡Mensaje enviado exitosamente a +${number}!`);
 
@@ -340,6 +349,7 @@ async function executeQuiz() {
       console.log(`📚 [Quiz] [${todaySent + i + 1}/${questionsPerDay}] Enviando: "${question.tema}"`);
 
       // 1. Enviar la pregunta
+      markBotMessage(formatQuestionMessage(question));
       await client.sendMessage(chatId, formatQuestionMessage(question));
       console.log(`✅ [Quiz] Pregunta enviada. Esperando ${config.quiz.answerDelayMs / 60000} minutos para enviar respuesta...`);
 
@@ -347,6 +357,7 @@ async function executeQuiz() {
       await sleep(config.quiz.answerDelayMs);
 
       // 3. Enviar la respuesta
+      markBotMessage(formatAnswerMessage(question));
       await client.sendMessage(chatId, formatAnswerMessage(question));
       console.log(`✅ [Quiz] Respuesta enviada para: "${question.tema}"`);
 
