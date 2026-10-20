@@ -78,7 +78,7 @@ async function generateResponse(incomingMsg, conversation) {
   const response = await openai.chat.completions.create({
     model: config.responder.model,
     messages: chatMessages,
-    temperature: 0.7,
+    temperature: 0.4,
     max_tokens: 300,
     response_format: { type: 'json_object' }
   });
@@ -187,7 +187,34 @@ async function buildChatContext(client, chatId, fallbackMessages) {
   } catch (e) {
     console.log(`⚠️ [Responder] No se pudo leer el chat ${chatId}: ${e.message}`);
   }
-  return fallbackMessages.slice(-10);
+  return fallbackMessages.slice(-12);
+}
+
+/**
+ * Mensaje de prospección enviado a un número (completo si está guardado).
+ */
+function getProspectingMessage(number) {
+  const history = loadHistory(config.historyFile);
+  const entry = history.sent.find(h => h.number === number && h.status === 'ENVIADO');
+  if (!entry) return null;
+  return entry.message ||
+    'Hola, soy César, estudiante de Ingeniería de Sistemas. Vi su negocio en Google Maps con buenas reseñas pero sin página web. ' +
+    'Como parte de mi proyecto universitario les ofrezco diseñar su web completa gratis. ¿Les gustaría ser el negocio elegido?';
+}
+
+// Palabras que indican que el prospecto NO está rechazando
+const AFFIRMATIVE_RE = /(^|[^a-záéíóúñ])(s[ií]+|claro|ok+|okey|dale|listo|perfecto|me interesa|cuenta conmigo|me escribes|escr[ií]beme|de acuerdo|genial)([^a-záéíóúñ]|$)/i;
+
+/**
+ * Envía un aviso a César por WhatsApp.
+ */
+async function notifyCesar(client, text) {
+  if (!config.responder.cesarNumber) return;
+  try {
+    await sendAsBot(client, `${config.responder.cesarNumber}@c.us`, text);
+  } catch (e) {
+    console.error('❌ [Responder] No se pudo avisar a César:', e.message);
+  }
 }
 
 /**
@@ -211,6 +238,10 @@ async function processQueue(client, number) {
       const conversation = loadConversation(number);
       if (conversation.closed) {
         console.log(`🔒 [Responder] Conversación cerrada con +${number}. No se responde.`);
+        // César no está en el chat: reenviarle lo que escribió el prospecto
+        if (['no_interesado', 'derivado_cesar'].includes(conversation.closedReason)) {
+          await notifyCesar(client, `📩 *+${number} escribió:*\n\n"${incoming}"`);
+        }
         return;
       }
       if (conversation.replyCount >= config.responder.maxRepliesPerContact) {
@@ -222,11 +253,24 @@ async function processQueue(client, number) {
       // El chat real ya contiene los mensajes entrantes; se quitan del final para no duplicarlos
       const context = await buildChatContext(client, chatId, conversation.messages);
       while (context.length > 0 && context[context.length - 1].role === 'user') context.pop();
+      const prospectingMsg = getProspectingMessage(number);
+      if (prospectingMsg && !context.some(m => m.role === 'assistant' && m.content === prospectingMsg)) {
+        context.unshift({ role: 'assistant', content: prospectingMsg });
+      }
       const result = await generateResponse(incoming, { messages: context });
 
       if (!result.mensaje || result.mensaje.trim() === '') {
         console.log('⚠️ [Responder] ChatGPT devolvió mensaje vacío. No se envía nada.');
         continue;
+      }
+
+      // Un cierre con respuesta afirmativa es casi seguro un error de ChatGPT: derivar a César
+      if (result.conversacionCerrada && AFFIRMATIVE_RE.test(incoming)) {
+        console.log(`⚠️ [Responder] Cierre dudoso con +${number} ("${incoming}"). Se deriva a César.`);
+        result.conversacionCerrada = false;
+        result.derivarACesar = true;
+        result.motivoDerivacion = 'El bot iba a cerrar, pero el prospecto respondió afirmativamente.';
+        result.mensaje = 'Perfecto, le escribo personalmente en un rato para coordinar 👍';
       }
 
       // Si César escribió a mano mientras se generaba la respuesta, no enviar
@@ -248,6 +292,20 @@ async function processQueue(client, number) {
         conversation.closed = true;
         conversation.closedReason = 'no_interesado';
         console.log(`🔒 [Responder] Conversación con +${number} marcada como cerrada.`);
+        await notifyCesar(client,
+          `🚫 *Prospecto cerrado (no interesado)*\n\n📱 +${number}\n💬 Último mensaje: "${incoming}"\n\n` +
+          `_Si fue un error, escríbele tú: el bot ya no le responde._`);
+      }
+
+      // Pedido fuera del guion: César toma la conversación
+      if (result.derivarACesar && !result.citaAgendada && !conversation.closed) {
+        conversation.closed = true;
+        conversation.closedReason = 'derivado_cesar';
+        conversation.motivoDerivacion = result.motivoDerivacion || '';
+        console.log(`🙋 [Responder] +${number} derivado a César: ${conversation.motivoDerivacion}`);
+        await notifyCesar(client,
+          `🙋 *Prospecto para ti*\n\n📱 +${number}\n📝 ${conversation.motivoDerivacion}\n💬 Último mensaje: "${incoming}"\n\n` +
+          `_Le dije que le escribes en un rato. El bot ya no le responde._`);
       }
 
       // Con la cita agendada el bot termina su trabajo: César sigue a mano
@@ -264,7 +322,6 @@ async function processQueue(client, number) {
 
       // --- NOTIFICAR A CÉSAR SI SE AGENDÓ UNA CITA (una sola vez) ---
       if (newCita) {
-        const notifChatId = `${config.responder.cesarNumber}@c.us`;
         const notifMsg =
           `🔔 *¡CITA AGENDADA!*\n\n` +
           `📱 Prospecto: +${number}\n` +
@@ -272,7 +329,7 @@ async function processQueue(client, number) {
           `⏰ Notificado: ${formatTime(new Date())}\n\n` +
           `💡 Revisa la conversación completa en los logs del servidor.`;
 
-        await sendAsBot(client, notifChatId, notifMsg);
+        await notifyCesar(client, notifMsg);
         console.log(`🔔 [Responder] ¡César notificado! Cita agendada con +${number}: ${result.resumen}`);
       }
     }
@@ -366,7 +423,7 @@ function sentByProspecting(number, body) {
   const history = loadHistory(config.historyFile);
   return history.sent.some(h =>
     h.number === number && h.messageSample && body &&
-    body.startsWith(h.messageSample.replace(/...$/, ''))
+    (h.message ? body === h.message : body.startsWith(h.messageSample.replace(/\.\.\.$/, '')))
   );
 }
 

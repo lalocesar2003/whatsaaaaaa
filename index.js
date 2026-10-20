@@ -260,7 +260,8 @@ async function executeDailyBatch() {
           number,
           date: new Date().toISOString(),
           status: 'ENVIADO',
-          messageSample: messageToSend.substring(0, 40) + '...'
+          messageSample: messageToSend.substring(0, 40) + '...',
+          message: messageToSend
         });
         saveHistory(config.historyFile, history);
 
