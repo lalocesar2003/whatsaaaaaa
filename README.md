@@ -77,7 +77,9 @@ Los `id` deben ser únicos y nuevos, porque el historial se lleva por `id`.
 - **Cuándo deja de responder a un contacto** (`closed: true` en `conversaciones/<número>.json`, con el motivo en `closedReason`):
   - `cita_agendada`: al confirmar una cita, el bot responde una última vez, avisa **una sola vez** a César y se retira. César continúa a mano.
   - `cesar_manual`: si César escribe a mano en el chat (desde su celular), el bot no vuelve a responder a ese contacto. Lo detecta con el evento `message_create`; los mensajes del propio bot se distinguen porque se registran antes de enviarse (`markBotMessage`).
-  - `no_interesado`: el prospecto dijo que no le interesa.
+  - `derivado_cesar`: el prospecto pidió algo fuera del guion (precio o monto, otros servicios como redes sociales, CV, otro número o una llamada). El bot le dice que César le escribirá y le manda a César un aviso `🙋 Prospecto para ti` con el motivo.
+  - `no_interesado`: el prospecto rechazó de forma explícita. César recibe un aviso `🚫`. Si ChatGPT intenta cerrar pero el mensaje es afirmativo ("sí", "claro", "me escribes"…), el bot lo deriva a César en lugar de cerrar.
+  - Si un contacto `derivado_cesar` o `no_interesado` vuelve a escribir, el mensaje se le reenvía a César (`📩`).
   - Para reactivar el bot con un contacto, edita su archivo y pon `"closed": false`.
 - **Descartes:** cada mensaje descartado queda en el log con el motivo (`ℹ️ [Responder] Ignorado: ...`).
 - **Pendientes al arrancar:** `processPendingReplies()` busca prospectos que escribieron en los últimos 3 días sin recibir respuesta.
