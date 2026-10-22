@@ -9,6 +9,22 @@ try {
   console.warn('⚠️ [Config] No existe config.local.js: el quiz y el aviso de citas no tendrán destinatario.');
 }
 
+/**
+ * Sección del prompt con los datos personales de César (desde config.local.js).
+ */
+function buildPersonalDataPrompt() {
+  const d = local.datosPersonales;
+  if (!d || (!d.nombreCompleto && !d.dni)) return '';
+  const lines = [];
+  if (d.nombreCompleto) lines.push(`- Nombre completo: ${d.nombreCompleto}`);
+  if (d.dni) lines.push(`- DNI: ${d.dni}`);
+  return `
+
+TUS DATOS PERSONALES:
+${lines.join('\n')}
+Si el prospecto pide tus datos, "datos completos", tu nombre completo o tu DNI (por ejemplo, para registrarte o verificar que eres estudiante), compártelos tal cual en un mensaje breve. Esto NO es motivo para derivar a César. No los compartas si no te los piden.`;
+}
+
 module.exports = {
   // Límite diario de mensajes
   dailyLimit: 5,
@@ -179,6 +195,6 @@ TU DISPONIBILIDAD PARA REUNIONES:
 - Presencial (solo en Piura): sábados de 9:00 AM a 12:00 PM
 - Virtual (videollamada por WhatsApp o Google Meet): lunes a viernes de 10:00 AM a 6:00 PM
 
-IMPORTANTE: Cuando el prospecto confirme un día y hora específicos, pon citaAgendada en true y en resumen escribe los detalles (tipo de reunión, día, hora, lugar si es presencial).`
+IMPORTANTE: Cuando el prospecto confirme un día y hora específicos, pon citaAgendada en true y en resumen escribe los detalles (tipo de reunión, día, hora, lugar si es presencial).` + buildPersonalDataPrompt()
   }
 };

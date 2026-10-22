@@ -5,5 +5,11 @@ module.exports = {
   quizTargetNumber: '51XXXXXXXXX',
 
   // Número personal que recibe los avisos de citas agendadas
-  cesarNumber: '51XXXXXXXXX'
+  cesarNumber: '51XXXXXXXXX',
+
+  // Datos personales que el bot comparte si el prospecto los pide (opcional)
+  datosPersonales: {
+    nombreCompleto: 'Nombre Apellido Apellido',
+    dni: 'XXXXXXXX'
+  }
 };
