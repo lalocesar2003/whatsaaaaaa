@@ -231,7 +231,10 @@ async function processQueue(client, number) {
       console.log(`⏳ [Responder] Esperando ${(delay / 60000).toFixed(1)} min antes de responder a +${number}...`);
       await sleep(delay);
 
-      const { chatId, texts } = pendingByNumber.get(number);
+      // César pudo tomar la conversación durante la espera (vacía la cola)
+      const entry = pendingByNumber.get(number);
+      if (!entry) break;
+      const { chatId, texts } = entry;
       pendingByNumber.delete(number);
       const incoming = texts.join('\n');
 
