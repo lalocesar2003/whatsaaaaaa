@@ -116,6 +116,20 @@ module.exports = {
   },
 
   // ================================================================
+  // MÓDULO RECORDATORIOS — César escribe al bot y recibe avisos
+  // ================================================================
+  recordatorios: {
+    // Hora de los avisos "día anterior" y "mismo día" (hora de Perú)
+    morningHour: 8,
+    morningMinute: 0,
+
+    // Aviso previo al evento: 3600000 ms = 1 hora
+    hourBeforeMs: 3600000,
+
+    file: path.join(__dirname, 'recordatorios.json')
+  },
+
+  // ================================================================
   // MÓDULO AUTO-RESPONDER — Respuestas inteligentes con ChatGPT
   // ================================================================
   responder: {

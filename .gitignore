@@ -8,3 +8,4 @@ conversaciones/
 .env
 parse-csv.js
 config.local.js
+recordatorios.json

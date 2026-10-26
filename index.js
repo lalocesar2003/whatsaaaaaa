@@ -28,6 +28,7 @@ const {
   formatQuestionMessage,
   formatAnswerMessage
 } = require('./quiz');
+const reminders = require('./recordatorios');
 const { initResponder, handleIncomingMessage, handleOutgoingMessage, processPendingReplies, markBotMessage } = require('./responder');
 
 // Estado global de la aplicación
@@ -408,6 +409,11 @@ setInterval(() => {
   if (!isSendingQuiz && nextQuizRun && now >= nextQuizRun) {
     executeQuiz();
   }
+
+  // Enviar recordatorios vencidos
+  reminders.tick(client, markBotMessage).catch((err) => {
+    console.error('❌ [Recordatorios] Error en heartbeat:', err.message);
+  });
 }, 30000);
 
 // Iniciar el cliente de WhatsApp

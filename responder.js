@@ -2,6 +2,7 @@ const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
+const reminders = require('./recordatorios');
 const { loadNumbers, loadHistory, sleep, getRandomInt, formatTime } = require('./utils');
 
 let openai = null;
@@ -384,7 +385,10 @@ async function handleIncomingMessage(client, msg) {
 
   // No responder al número del quiz ni a tu número personal
   if (number === config.quiz.targetNumber) return;
-  if (number === config.responder.cesarNumber) return;
+  // Mensajes de César al bot: módulo de recordatorios
+  if (number === config.responder.cesarNumber) {
+    return reminders.handleCesarMessage(client, msg, markBotMessage);
+  }
 
   // Solo responder a prospectos de numeros.txt
   if (!isProspectNumber(number)) {
