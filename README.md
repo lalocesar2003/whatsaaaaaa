@@ -7,6 +7,7 @@ Bot en **Node.js** con **whatsapp-web.js** que corre 24/7 en un servidor Ubuntu 
 | **Prospección** | Envía la propuesta de página web a 5 negocios nuevos por día | `index.js`, `utils.js`, `numeros.txt`, `historial.json` |
 | **Quiz médico** | Sesión diaria de 5 preguntas clínicas con respuesta a los 7 min | `quiz.js`, `preguntas.json`, `quiz-historial.json` |
 | **Auto-responder** | Contesta con ChatGPT a los prospectos que responden | `responder.js`, `conversaciones/` |
+| **Recordatorios** | César le escribe un evento al bot y recibe avisos por WhatsApp | `recordatorios.js`, `recordatorios.json` |
 
 Toda la configuración está en `config.js`. Los datos privados (teléfonos) van en `config.local.js`, que **no se sube a GitHub**:
 
@@ -87,6 +88,26 @@ Los `id` deben ser únicos y nuevos, porque el historial se lleva por `id`.
 
 ---
 
+## 📅 Módulo 4: Recordatorios
+
+César le escribe al número del bot **desde su número personal** (`cesarNumber` en `config.local.js`). Los mensajes de cualquier otro número no pueden crear recordatorios.
+
+| César escribe | El bot hace |
+|---|---|
+| "Tengo reunión con mi asesor de tesis mañana a las 4 de la tarde" | Crea el recordatorio y confirma qué avisos programó |
+| "El jueves tengo examen" (sin hora) | Pregunta la hora y combina la respuesta con el mensaje anterior |
+| "Mis recordatorios" | Lista los recordatorios pendientes |
+| "Cancela lo del dentista" / "Cancela el #3" | Borra el recordatorio |
+
+**Avisos** (`config.recordatorios`):
+- **Día anterior** a las 8:00 AM.
+- **Mismo día** a las 8:00 AM. Se omite si el evento es antes de las 9:00 AM, porque coincidiría con el de 1 hora antes.
+- **1 hora antes** del evento.
+
+Solo se programan los avisos que todavía están en el futuro. Si el bot estuvo apagado, al volver envía los avisos atrasados, siempre que el evento aún no haya pasado. Los recordatorios se guardan en `recordatorios.json` (ignorado por git) y se borran un día después del evento. ChatGPT interpreta los mensajes con un calendario de los próximos 14 días, para no equivocarse con fechas como "el viernes".
+
+---
+
 ## 📁 Estructura
 
 ```
@@ -98,6 +119,8 @@ whatsapp-bot/
 ├── utils.js              # Números, horarios aleatorios, Spintax, historial
 ├── quiz.js               # Lógica del quiz (rotación, conteo diario, ventana de inicio)
 ├── responder.js          # Auto-responder con ChatGPT
+├── recordatorios.js      # Recordatorios para César
+├── recordatorios.json    # Recordatorios guardados        (ignorado por git)
 ├── preguntas.json        # Banco de preguntas médicas
 ├── numeros.txt           # Prospectos
 ├── historial.json        # Envíos de prospección          (ignorado por git)
