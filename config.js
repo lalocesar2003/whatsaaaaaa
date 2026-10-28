@@ -88,6 +88,9 @@ module.exports = {
   // MÓDULO QUIZ MÉDICO — Preguntas diarias para estudio
   // ================================================================
   quiz: {
+    // Encendido/apagado del quiz. false = pausado (no se envían preguntas)
+    enabled: false,
+
     // Número destinatario de las preguntas (definido en config.local.js)
     targetNumber: process.env.QUIZ_TARGET_NUMBER || local.quizTargetNumber || '',
 

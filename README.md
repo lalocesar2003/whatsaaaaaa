@@ -38,6 +38,7 @@ El servidor corre en **UTC**, pero `index.js` fija `process.env.TZ = 'America/Li
 
 ## 📚 Módulo 2: Quiz médico
 
+- **⏸️ Estado: PAUSADO** (`quiz.enabled: false` en `config.js`). Para reactivarlo, pon `enabled: true` y reinicia el bot.
 - **Destino:** `quizTargetNumber` en `config.local.js`.
 - **Preguntas por día:** 5 (`questionsPerDay`).
 - **Dinámica de cada pregunta:** se envía la pregunta, a los **7 min** la respuesta con su explicación (`answerDelayMs`), y **1 hora** después la siguiente pregunta (`delayBetweenQuestionsMs`).

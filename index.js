@@ -163,6 +163,12 @@ function scheduleNextRun(forceTomorrow = false) {
  * Programa el próximo envío del quiz médico.
  */
 function scheduleNextQuiz() {
+  if (!config.quiz.enabled) {
+    nextQuizRun = null;
+    console.log('\n⏸️ [Quiz] Pausado (config.quiz.enabled = false). No se enviarán preguntas.');
+    return;
+  }
+
   if (sentQuizToday()) {
     // Ya se envió hoy: programar para mañana
     const tomorrow = new Date();
