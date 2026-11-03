@@ -47,16 +47,17 @@ El servidor corre en **UTC**, pero `index.js` fija `process.env.TZ = 'America/Li
 - **Reinicios:** si el bot se reinicia a mitad de la sesión, retoma las preguntas que falten del día. El conteo usa la fecha de Perú.
 - **Rotación:** cuando se envían todas las preguntas del banco, el ciclo vuelve a empezar.
 
-### Banco de preguntas (`preguntas.json`), 48 preguntas
+### Banco de preguntas (`preguntas.json`), 58 preguntas
 
 - **1–28:** cardiología, gastroenterología y neurología.
 - **29–48:** infecciosas (MRSA, tifoidea, dengue, malaria, VIH, ofidismo), respiratorio (insuficiencia respiratoria, NAC, TBC, EPOC, asma, derrame pleural), cardiovascular (FA, insuficiencia cardiaca, crisis hipertensiva, IAMCEST) y endocrino (DM2, Graves, Cushing, Addison).
+- **49–58:** endocrinología (nefropatía diabética, nódulo tiroideo, hiperparatiroidismo, Addison, Sheehan, feocromocitoma) y reumatología (gota, artritis reumatoide, esclerosis sistémica, Wegener).
 
 Formato de cada pregunta:
 
 ```json
 {
-  "id": 49,
+  "id": 59,
   "tema": "...",
   "pregunta": "...",
   "alternativas": ["A) ...", "B) ...", "C) ...", "D) ..."],

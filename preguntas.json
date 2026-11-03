@@ -622,5 +622,135 @@
     ],
     "respuesta": "B",
     "explicacion": "Cortisol bajo + ACTH MUY elevada = insuficiencia suprarrenal PRIMARIA (Addison). La ACTH elevada produce hiperpigmentación (ACTH deriva de POMC que también genera MSH). Tríada clásica: hiperpigmentación + hipotensión + hiperkalemia/hiponatremia. Causa más frecuente: autoinmune (adrenalitis, anticuerpos anti-21-hidroxilasa); en países en desarrollo: tuberculosis suprarrenal. Tratamiento: (1) Hidrocortisona 15-25 mg/día VO fraccionada (2/3 AM + 1/3 PM, simulando ritmo circadiano), (2) Fludrocortisona 0.05-0.2 mg/día (reemplazo mineralocorticoide, esencial en la primaria). En crisis addisoniana (shock): hidrocortisona 100 mg IV bolo + SSN IV agresiva."
+  },
+  {
+    "id": 49,
+    "tema": "Nefropatía Diabética - Fisiopatología",
+    "pregunta": "Paciente con DM2 de 15 años de evolución que presenta microalbuminuria persistente en sus controles. ¿Cuál es el mecanismo fisiopatológico inicial principal que explica la hiperfiltración y el daño renal incipiente en este paciente?",
+    "alternativas": [
+      "A) Vasoconstricción de la arteriola eferente mediada por angiotensina II",
+      "B) Vasodilatación preferencial de la arteriola aferente",
+      "C) Engrosamiento temprano de la membrana basal glomerular",
+      "D) Disminución de la presión hidrostática intraglomerular"
+    ],
+    "respuesta": "B",
+    "explicacion": "En etapas iniciales, la hiperglicemia causa dilatación de la arteriola aferente, lo que aumenta la presión intraglomerular y produce hiperfiltración. Esa hipertensión glomerular sostenida es la que daña progresivamente el glomérulo y se manifiesta como microalbuminuria."
+  },
+  {
+    "id": 50,
+    "tema": "Nódulo Tiroideo con TSH Suprimida",
+    "pregunta": "Mujer de 45 años con un nódulo tiroideo palpable de 1.8 cm descubierto incidentalmente. En los exámenes de laboratorio, la TSH se encuentra suprimida. ¿Cuál es el siguiente paso más apropiado en el algoritmo diagnóstico?",
+    "alternativas": [
+      "A) Punción aspiración con aguja fina (PAAF) guiada por ecografía",
+      "B) Resonancia magnética de cuello",
+      "C) Gammagrafía tiroidea con yodo o tecnecio",
+      "D) Medición de anticuerpos antitiroideos (TPO y Tg)"
+    ],
+    "respuesta": "C",
+    "explicacion": "Un nódulo con TSH suprimida indica posible hiperfuncionalidad. La gammagrafía diferencia un nódulo caliente (tóxico, rara vez maligno, no requiere PAAF) de uno frío. Si la TSH es normal o alta, el siguiente paso es la ecografía y la PAAF."
+  },
+  {
+    "id": 51,
+    "tema": "Hiperparatiroidismo Primario - Osteítis Fibrosa Quística",
+    "pregunta": "En un paciente con diagnóstico de hiperparatiroidismo primario que presenta dolor óseo de larga data, ¿cuál es el hallazgo radiológico clásico que indica una afectación ósea avanzada conocida como osteítis fibrosa quística?",
+    "alternativas": [
+      "A) Reabsorción ósea subperióstica en las falanges",
+      "B) Vértebras en \"jersey de rugby\"",
+      "C) Cráneo en \"sal y pimienta\" únicamente",
+      "D) Líneas de Looser-Milkman"
+    ],
+    "respuesta": "A",
+    "explicacion": "La reabsorción subperióstica, especialmente en el lado radial de las falanges medias, es patognomónica del hiperparatiroidismo. Las vértebras en \"jersey de rugby\" son típicas del hiperparatiroidismo secundario a enfermedad renal, y las líneas de Looser-Milkman, de la osteomalacia."
+  },
+  {
+    "id": 52,
+    "tema": "Enfermedad de Addison - Perfil de Laboratorio",
+    "pregunta": "Mujer de 35 años con astenia, pérdida de peso e hiperpigmentación marcada en encías y pliegues palmares. Sus electrolitos muestran Sodio 130 mEq/L y Potasio 5.5 mEq/L. ¿Qué perfil de laboratorio confirmaría el diagnóstico etiológico de su cuadro (Enfermedad de Addison)?",
+    "alternativas": [
+      "A) Cortisol sérico bajo y ACTH plasmática suprimida",
+      "B) Cortisol sérico elevado y ACTH plasmática muy elevada",
+      "C) Cortisol sérico normal con respuesta exagerada a la prueba de ACTH",
+      "D) Cortisol sérico bajo y ACTH plasmática muy elevada"
+    ],
+    "respuesta": "D",
+    "explicacion": "En la falla suprarrenal primaria no hay producción de cortisol, y la ACTH se eleva por pérdida del feedback negativo. La ACTH alta explica la hiperpigmentación. Cortisol bajo con ACTH baja indicaría insuficiencia suprarrenal secundaria (hipofisaria)."
+  },
+  {
+    "id": 53,
+    "tema": "Síndrome de Sheehan",
+    "pregunta": "Puérpera de 3 semanas que sufrió shock hemorrágico durante el parto. Acude por incapacidad total para lactar, fatiga extrema y amenorrea. Se sospecha necrosis hipofisaria (Síndrome de Sheehan). ¿Qué ejes hormonales suelen afectarse primero y con mayor severidad en esta patología?",
+    "alternativas": [
+      "A) Eje corticotropo y eje tirotropo",
+      "B) Eje gonadotropo y eje corticotropo",
+      "C) Eje somatotropo y eje lactotropo",
+      "D) Secreción de hormona antidiurética (ADH) y oxitocina"
+    ],
+    "respuesta": "C",
+    "explicacion": "La GH y la prolactina son producidas por células ubicadas en zonas periféricas de la adenohipófisis, las más vulnerables a la isquemia. Por eso la agalactia (falta de prolactina) suele ser el primer signo. La neurohipófisis (ADH, oxitocina) rara vez se afecta, porque tiene otra irrigación."
+  },
+  {
+    "id": 54,
+    "tema": "Gota - Crisis Aguda",
+    "pregunta": "Varón de 50 años con monoartritis aguda muy dolorosa en la primera articulación metatarsofalángica, con eritema y calor local. Se extrae líquido sinovial. ¿Qué hallazgo en el microscopio de luz polarizada confirma el diagnóstico de crisis gotosa aguda?",
+    "alternativas": [
+      "A) Cristales romboidales con birrefringencia positiva débil",
+      "B) Cristales en forma de aguja con birrefringencia negativa fuerte",
+      "C) Acumulación de células pelícanos y cristales de colesterol",
+      "D) Cristales de hidroxiapatita no visibles a la luz polarizada"
+    ],
+    "respuesta": "B",
+    "explicacion": "El urato monosódico forma cristales en forma de aguja con birrefringencia fuertemente negativa. Los cristales romboidales con birrefringencia positiva débil son de pirofosfato de calcio (pseudogota). La afectación de la primera metatarsofalángica se llama podagra."
+  },
+  {
+    "id": 55,
+    "tema": "Artritis Reumatoide - Autoanticuerpos",
+    "pregunta": "Paciente de 40 años presenta poliartritis simétrica en articulaciones metacarpofalángicas e interfalángicas proximales, con rigidez matinal de 2 horas de duración. ¿Qué autoanticuerpo tiene la mayor especificidad para el diagnóstico temprano y pronóstico de la artritis reumatoide?",
+    "alternativas": [
+      "A) Factor reumatoide (FR)",
+      "B) Anticuerpos antinucleares (ANA)",
+      "C) Anticuerpos anti-Ro/SSA",
+      "D) Anticuerpos antipéptido cíclico citrulinado (anti-CCP)"
+    ],
+    "respuesta": "D",
+    "explicacion": "El anti-CCP tiene una especificidad mayor al 95%, aparece muy temprano e indica peor pronóstico articular (enfermedad erosiva). El factor reumatoide es más sensible pero mucho menos específico: aparece también en otras enfermedades autoinmunes, en infecciones crónicas y en adultos mayores sanos."
+  },
+  {
+    "id": 56,
+    "tema": "Esclerosis Sistémica Limitada (CREST)",
+    "pregunta": "Mujer de 45 años consulta por fenómeno de Raynaud severo de 3 años de evolución, dificultad para tragar sólidos, engrosamiento de la piel de los dedos (esclerodactilia) y telangiectasias faciales. Se sospecha una esclerosis sistémica variedad limitada. ¿Qué anticuerpo está clásicamente asociado a esta forma clínica?",
+    "alternativas": [
+      "A) Anticuerpo anti-Scl-70 (anti-topoisomerasa I)",
+      "B) Anticuerpo anticentrómero",
+      "C) Anticuerpo anti-RNP",
+      "D) Anticuerpo anti-Jo-1"
+    ],
+    "respuesta": "B",
+    "explicacion": "El anticentrómero se asocia a la esclerosis sistémica limitada o síndrome de CREST (Calcinosis, Raynaud, dismotilidad Esofágica, eSclerodactilia, Telangiectasias). El anti-Scl-70 es de la forma difusa (riesgo de fibrosis pulmonar), el anti-RNP es de la enfermedad mixta del tejido conectivo y el anti-Jo-1 es de la miositis."
+  },
+  {
+    "id": 57,
+    "tema": "Granulomatosis con Poliangeítis (Wegener)",
+    "pregunta": "Varón de 55 años presenta sinusitis crónica con secreción sanguinolenta purulenta, hemoptisis progresiva y hematuria con hematíes dismórficos. La biopsia nasal muestra inflamación granulomatosa necrotizante. ¿Qué marcador serológico es altamente característico de esta patología (Granulomatosis con poliangeítis / Wegener)?",
+    "alternativas": [
+      "A) p-ANCA dirigidos contra la mieloperoxidasa (MPO)",
+      "B) Anticuerpos anti-membrana basal glomerular (anti-MBG)",
+      "C) c-ANCA dirigidos contra la proteinasa 3 (PR3)",
+      "D) Anticuerpos antifosfolipídicos"
+    ],
+    "respuesta": "C",
+    "explicacion": "La granulomatosis con poliangeítis (Wegener) se asocia clásicamente a c-ANCA positivo contra PR3. Afecta la vía aérea superior, el pulmón y el riñón (glomerulonefritis). El p-ANCA anti-MPO es típico de la poliangeítis microscópica, y los anti-MBG, del síndrome de Goodpasture."
+  },
+  {
+    "id": 58,
+    "tema": "Feocromocitoma - Manejo Preoperatorio",
+    "pregunta": "Paciente ingresa por episodios paroxísticos de cefalea pulsátil, sudoración profusa, taquicardia y picos hipertensivos de 220/120 mmHg. Las metanefrinas en orina de 24 horas están muy elevadas y la TAC muestra masa adrenal. Se decide intervención quirúrgica. ¿Cuál es el manejo farmacológico preoperatorio indispensable para evitar una crisis hipertensiva mortal durante la inducción anestésica?",
+    "alternativas": [
+      "A) Bloqueo alfa-adrenérgico inicial con fenoxibenzamina",
+      "B) Bloqueo beta-adrenérgico exclusivo con propranolol",
+      "C) Administración de espironolactona a altas dosis",
+      "D) Cirugía de emergencia sin preparación farmacológica previa"
+    ],
+    "respuesta": "A",
+    "explicacion": "Siempre se bloquean primero los receptores alfa (fenoxibenzamina, 10 a 14 días antes de la cirugía) para controlar la presión. El betabloqueador se agrega solo después; darlo primero deja la vasoconstricción alfa sin oposición y puede causar una crisis hipertensiva."
   }
 ]
