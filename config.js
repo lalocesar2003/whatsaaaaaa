@@ -89,7 +89,7 @@ module.exports = {
   // ================================================================
   quiz: {
     // Encendido/apagado del quiz. false = pausado (no se envían preguntas)
-    enabled: false,
+    enabled: true,
 
     // Número destinatario de las preguntas (definido en config.local.js)
     targetNumber: process.env.QUIZ_TARGET_NUMBER || local.quizTargetNumber || '',
